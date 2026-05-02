@@ -1,5 +1,5 @@
 import { siteContent, type CardColor } from "@/content/landing";
-import { SplashBg } from "./SplashBg";
+import emojiPattern from "@/assets/emoji-pattern.png";
 
 const colorMap: Record<CardColor, { bg: string; text: string; ring: string }> = {
   yellow: { bg: "bg-fun-yellow", text: "text-fun-ink", ring: "ring-fun-ink/10" },
@@ -10,8 +10,16 @@ const colorMap: Record<CardColor, { bg: string; text: string; ring: string }> = 
 export function About() {
   const { about } = siteContent;
   return (
-    <section id="about" className="relative overflow-hidden bg-fun-cream px-4 py-20 md:py-28">
-      <SplashBg variant="rainbow" />
+    <section
+      id="about"
+      className="relative overflow-hidden px-4 py-20 md:py-28"
+      style={{
+        backgroundImage: `url(${emojiPattern})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <div className="relative z-10 mx-auto max-w-6xl">
         <div className="text-center">
           <h2

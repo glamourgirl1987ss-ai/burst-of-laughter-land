@@ -1,5 +1,5 @@
 import { siteContent } from "@/content/landing";
-import { SplashBg } from "./SplashBg";
+import emojiPattern from "@/assets/emoji-pattern.png";
 
 const tilts = ["-rotate-2", "rotate-1", "-rotate-1", "rotate-2", "-rotate-3", "rotate-1"];
 
@@ -8,9 +8,14 @@ export function Gallery() {
   return (
     <section
       id="gallery"
-      className="relative overflow-hidden bg-fun-cream px-4 py-20 md:py-28"
+      className="relative overflow-hidden px-4 py-20 md:py-28"
+      style={{
+        backgroundImage: `url(${emojiPattern})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
     >
-      <SplashBg variant="cool" />
       <div className="relative z-10 mx-auto max-w-6xl">
         <h2
           className="text-center font-display text-4xl font-bold text-fun-ink md:text-6xl"

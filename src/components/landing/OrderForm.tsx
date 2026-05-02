@@ -2,7 +2,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { toast } from "sonner";
 import { siteContent } from "@/content/landing";
-import { SplashBg } from "./SplashBg";
+import emojiPattern from "@/assets/emoji-pattern.png";
 
 const orderSchema = z.object({
   name: z
@@ -66,9 +66,14 @@ export function OrderForm() {
   return (
     <section
       id="order"
-      className="relative overflow-hidden bg-gradient-to-br from-fun-yellow via-fun-pink to-fun-purple px-4 py-20 md:py-28"
+      className="relative overflow-hidden px-4 py-20 md:py-28"
+      style={{
+        backgroundImage: `url(${emojiPattern})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
     >
-      <SplashBg variant="rainbow" showDots={false} />
       <div className="relative z-10 mx-auto max-w-2xl">
         <div className="rounded-3xl bg-white p-6 shadow-[0_20px_0_rgb(0_0_0_/_0.15)] ring-4 ring-fun-ink/10 md:p-10">
           <div className="text-center">

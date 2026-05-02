@@ -22,11 +22,6 @@ export function Hero() {
           alt={hero.title}
           className="mx-auto w-full max-w-2xl drop-shadow-[0_8px_0_rgb(0_0_0_/_0.15)] animate-title-float"
         />
-        <div className="-mt-4 md:-mt-8 inline-block -rotate-2 rounded-2xl border-4 border-fun-ink bg-fun-yellow px-6 py-3 shadow-[6px_6px_0_rgb(0_0_0_/_0.85)] md:px-9 md:py-4">
-          <p className="font-display text-xl font-extrabold text-fun-ink md:text-3xl">
-            🤪 {hero.tagline} 💥
-          </p>
-        </div>
         <p className="mt-4 font-display text-2xl font-bold text-fun-ink drop-shadow-[0_2px_0_rgb(255_255_255_/_0.8)] md:text-4xl">
           {hero.subtitle}
         </p>

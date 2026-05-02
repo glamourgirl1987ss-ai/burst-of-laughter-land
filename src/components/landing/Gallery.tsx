@@ -1,5 +1,5 @@
 import { siteContent } from "@/content/landing";
-import emojiPattern from "@/assets/emoji-pattern.png";
+import emojiPatternTile from "@/assets/emoji-pattern-tile.png";
 
 const tilts = ["-rotate-2", "rotate-1", "-rotate-1", "rotate-2", "-rotate-3", "rotate-1"];
 
@@ -10,10 +10,10 @@ export function Gallery() {
       id="gallery"
       className="relative overflow-hidden px-4 py-20 md:py-28"
       style={{
-        backgroundImage: `url(${emojiPattern})`,
-        backgroundSize: "cover",
+        backgroundImage: `url(${emojiPatternTile})`,
+        backgroundSize: "600px",
         backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
+        backgroundRepeat: "repeat",
       }}
     >
       <div className="relative z-10 mx-auto max-w-6xl">

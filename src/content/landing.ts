@@ -77,7 +77,7 @@ export const siteContent = {
     ],
   },
   product: {
-    heading: "Кутията с лудост",
+    heading: "Щурата кутия",
     description:
       "Всичко, от което имаш нужда за един незабравим купон със семейството и приятелите.",
     features: [

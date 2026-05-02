@@ -1,4 +1,4 @@
-import cardYellowCat from "@/assets/card-yellow-cat.png";
+import cardYellowRobot from "@/assets/card-yellow-robot.png";
 import cardBlueFunny from "@/assets/card-blue-funny.png";
 import cardRedTiptoe from "@/assets/card-red-tiptoe.png";
 
@@ -31,7 +31,7 @@ export const siteContent = {
         title: "Жълти",
         subtitle: "Кой съм",
         rotation: "-rotate-6",
-        image: cardYellowCat,
+        image: cardYellowRobot,
       },
       {
         color: "blue" as const,

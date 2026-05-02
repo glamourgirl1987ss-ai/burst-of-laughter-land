@@ -15,8 +15,6 @@ export function Hero() {
         backgroundRepeat: "no-repeat",
       }}
     >
-      {/* Soft overlay so the buttons remain readable on the busy pattern */}
-      <div className="absolute inset-0 bg-fun-ink/40" />
       <div className="relative z-10 mx-auto max-w-4xl text-center">
         <h1 className="fun-title text-6xl sm:text-7xl md:text-8xl lg:text-9xl">
           {titleLetters.map((ch, i) => (

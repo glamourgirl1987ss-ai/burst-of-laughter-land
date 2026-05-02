@@ -1,5 +1,5 @@
 import { siteContent } from "@/content/landing";
-import emojiPatternTile from "@/assets/emoji-pattern-tile.png";
+import emojiPattern from "@/assets/emoji-pattern.png";
 
 const stepColors = ["bg-fun-yellow", "bg-fun-blue", "bg-fun-red", "bg-fun-purple"];
 const stepText = ["text-fun-ink", "text-white", "text-white", "text-white"];
@@ -11,10 +11,10 @@ export function HowToPlay() {
       id="how"
       className="relative overflow-hidden px-4 py-20 md:py-28"
       style={{
-        backgroundImage: `url(${emojiPatternTile})`,
-        backgroundSize: "600px",
+        backgroundImage: `url(${emojiPattern})`,
+        backgroundSize: "contain",
         backgroundPosition: "center",
-        backgroundRepeat: "repeat",
+        backgroundRepeat: "no-repeat",
       }}
     >
       <div className="relative z-10 mx-auto max-w-6xl">

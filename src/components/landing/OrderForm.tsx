@@ -2,7 +2,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { toast } from "sonner";
 import { siteContent } from "@/content/landing";
-import emojiPatternTile from "@/assets/emoji-pattern-tile.png";
+import emojiPattern from "@/assets/emoji-pattern.png";
 
 const orderSchema = z.object({
   name: z
@@ -68,10 +68,10 @@ export function OrderForm() {
       id="order"
       className="relative overflow-hidden px-4 py-20 md:py-28"
       style={{
-        backgroundImage: `url(${emojiPatternTile})`,
-        backgroundSize: "600px",
+        backgroundImage: `url(${emojiPattern})`,
+        backgroundSize: "contain",
         backgroundPosition: "center",
-        backgroundRepeat: "repeat",
+        backgroundRepeat: "no-repeat",
       }}
     >
       <div className="relative z-10 mx-auto max-w-2xl">

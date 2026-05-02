@@ -1,5 +1,5 @@
 import { siteContent, type CardColor } from "@/content/landing";
-import emojiPatternTile from "@/assets/emoji-pattern-tile.png";
+import emojiPattern from "@/assets/emoji-pattern.png";
 
 const colorMap: Record<CardColor, { bg: string; text: string; ring: string }> = {
   yellow: { bg: "bg-fun-yellow", text: "text-fun-ink", ring: "ring-fun-ink/10" },
@@ -14,10 +14,10 @@ export function About() {
       id="about"
       className="relative overflow-hidden px-4 py-20 md:py-28"
       style={{
-        backgroundImage: `url(${emojiPatternTile})`,
-        backgroundSize: "600px",
+        backgroundImage: `url(${emojiPattern})`,
+        backgroundSize: "contain",
         backgroundPosition: "center",
-        backgroundRepeat: "repeat",
+        backgroundRepeat: "no-repeat",
       }}
     >
       <div className="relative z-10 mx-auto max-w-6xl">

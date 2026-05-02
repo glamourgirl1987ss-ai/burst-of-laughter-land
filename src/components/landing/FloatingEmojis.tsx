@@ -5,16 +5,16 @@ type Props = {
 };
 
 const positions = [
-  { top: "8%", left: "6%", size: "text-5xl", delay: "0s", rotate: "-12deg" },
-  { top: "14%", right: "8%", size: "text-6xl", delay: "0.6s", rotate: "10deg" },
-  { top: "55%", left: "4%", size: "text-4xl", delay: "1.2s", rotate: "-6deg" },
-  { top: "62%", right: "6%", size: "text-5xl", delay: "0.3s", rotate: "8deg" },
-  { top: "30%", left: "44%", size: "text-3xl", delay: "1.8s", rotate: "4deg" },
-  { top: "78%", left: "30%", size: "text-4xl", delay: "0.9s", rotate: "-10deg" },
-  { top: "20%", left: "26%", size: "text-3xl", delay: "1.5s", rotate: "12deg" },
-  { top: "70%", right: "28%", size: "text-5xl", delay: "2.1s", rotate: "-4deg" },
-  { top: "40%", right: "20%", size: "text-3xl", delay: "0.4s", rotate: "6deg" },
-  { top: "85%", right: "44%", size: "text-4xl", delay: "1.0s", rotate: "-8deg" },
+  { top: "6%", left: "4%", size: "text-7xl md:text-8xl", delay: "0s", rotate: "-12deg" },
+  { top: "10%", right: "5%", size: "text-7xl md:text-9xl", delay: "0.6s", rotate: "10deg" },
+  { top: "55%", left: "2%", size: "text-6xl md:text-8xl", delay: "1.2s", rotate: "-6deg" },
+  { top: "60%", right: "3%", size: "text-7xl md:text-9xl", delay: "0.3s", rotate: "8deg" },
+  { top: "30%", left: "42%", size: "text-5xl md:text-7xl", delay: "1.8s", rotate: "4deg" },
+  { top: "80%", left: "20%", size: "text-6xl md:text-8xl", delay: "0.9s", rotate: "-10deg" },
+  { top: "22%", left: "20%", size: "text-5xl md:text-7xl", delay: "1.5s", rotate: "12deg" },
+  { top: "72%", right: "22%", size: "text-6xl md:text-8xl", delay: "2.1s", rotate: "-4deg" },
+  { top: "42%", right: "18%", size: "text-5xl md:text-7xl", delay: "0.4s", rotate: "6deg" },
+  { top: "86%", right: "40%", size: "text-6xl md:text-8xl", delay: "1.0s", rotate: "-8deg" },
 ] as const;
 
 export function FloatingEmojis({ emojis, className = "" }: Props) {

@@ -1,33 +1,28 @@
 import { siteContent } from "@/content/landing";
 import { FloatingEmojis } from "./FloatingEmojis";
-import { SplashBg } from "./SplashBg";
+import heroBg from "@/assets/hero-bg.png";
 
 export function Hero() {
   const { hero } = siteContent;
   return (
     <section
       id="top"
-      className="relative isolate flex min-h-[88vh] items-center justify-center overflow-hidden px-4 py-16 md:py-24"
+      className="relative isolate flex min-h-[92vh] items-center justify-center overflow-hidden px-4 py-16 md:py-24"
+      style={{
+        backgroundImage: `url(${heroBg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
     >
-      <SplashBg />
+      {/* Soft dark overlay for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/40" />
       <FloatingEmojis emojis={hero.floatingEmojis} />
-      <div className="relative z-10 mx-auto max-w-4xl text-center">
-        <span className="inline-block rounded-full border-4 border-fun-ink/10 bg-white px-4 py-1.5 font-display text-sm font-bold tracking-wide text-fun-purple shadow-md">
-          🃏 КАРТОВА ИГРА ЗА СМЯХ 🃏
-        </span>
-        <h1
-          className="mt-6 font-display text-5xl font-bold leading-[0.95] text-fun-ink md:text-7xl lg:text-8xl"
-          style={{ letterSpacing: "-0.03em" }}
-        >
-          <span className="inline-block animate-[wiggle_3s_ease-in-out_infinite] text-fun-red">
-            Щуро
-          </span>
-          <span className="inline-block text-fun-purple">Бъркотия</span>
-        </h1>
-        <p className="mx-auto mt-4 max-w-2xl font-display text-xl font-semibold text-fun-ink md:text-2xl">
+      <div className="relative z-10 mx-auto flex min-h-[80vh] max-w-4xl flex-col items-center justify-end pb-4 text-center md:justify-end md:pb-8">
+        <p className="mx-auto max-w-2xl font-display text-2xl font-bold text-white drop-shadow-[0_3px_0_rgb(0_0_0_/_0.6)] md:text-4xl">
           {hero.tagline} 💥
         </p>
-        <p className="mt-3 font-display text-2xl font-bold text-fun-blue md:text-3xl">
+        <p className="mt-3 font-display text-3xl font-bold text-fun-yellow drop-shadow-[0_3px_0_rgb(0_0_0_/_0.7)] md:text-5xl">
           {hero.subtitle}
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">

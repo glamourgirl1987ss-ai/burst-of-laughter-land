@@ -29,11 +29,18 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "ЩуроБъркотия – играта, която ще ви взриви от смях" },
+      {
+        name: "description",
+        content:
+          "ЩуроБъркотия – забавната картова игра за деца и възрастни. Играй! Смей се! Познай! Поръчай онлайн.",
+      },
+      { name: "author", content: "ЩуроБъркотия" },
+      { property: "og:title", content: "ЩуроБъркотия – игра за смях и лудории" },
+      {
+        property: "og:description",
+        content: "Комбинирай карти, влизай в щури роли и създавай най-забавните ситуации!",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
@@ -42,6 +49,12 @@ export const Route = createRootRoute({
       {
         rel: "stylesheet",
         href: appCss,
+      },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Baloo+2:wght@500;600;700;800&display=swap",
       },
     ],
   }),

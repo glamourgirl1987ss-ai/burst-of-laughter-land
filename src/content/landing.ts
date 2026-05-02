@@ -1,3 +1,5 @@
+import cardYellowCat from "@/assets/card-yellow-cat.png";
+
 // Easy-to-edit content for the ЩуроБъркотия landing page.
 // Update copy, cards, steps, features and gallery here.
 
@@ -27,6 +29,7 @@ export const siteContent = {
         title: "Жълти",
         subtitle: "Кой съм",
         rotation: "-rotate-6",
+        image: cardYellowCat,
       },
       {
         color: "blue" as const,
@@ -34,6 +37,7 @@ export const siteContent = {
         title: "Сини",
         subtitle: "Какво съм",
         rotation: "rotate-2",
+        image: null,
       },
       {
         color: "red" as const,
@@ -41,6 +45,7 @@ export const siteContent = {
         title: "Червени",
         subtitle: "Какво правя",
         rotation: "-rotate-3",
+        image: null,
       },
     ],
     bonus: {

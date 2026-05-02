@@ -8,7 +8,7 @@ export function Product() {
       className="relative overflow-hidden px-4 py-20 md:py-28"
       style={{
         backgroundImage: `url(${emojiPattern})`,
-        backgroundSize: "100% 100%",
+        backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}

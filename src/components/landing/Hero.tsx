@@ -10,7 +10,7 @@ export function Hero() {
       className="relative isolate flex min-h-[92vh] items-center justify-center overflow-hidden px-4 py-16 md:py-24"
       style={{
         backgroundImage: `url(${emojiPattern})`,
-        backgroundSize: "100% 100%",
+        backgroundSize: "contain",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}

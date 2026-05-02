@@ -15,7 +15,7 @@ export function Hero() {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="relative z-10 mx-auto max-w-4xl text-center">
+      <div className="relative z-10 mx-auto max-w-4xl text-center pt-32 md:pt-44">
         <h1 className="sr-only">{hero.title}</h1>
         <img
           src={titleLogo}

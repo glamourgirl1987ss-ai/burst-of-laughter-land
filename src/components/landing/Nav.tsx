@@ -1,10 +1,17 @@
 import { siteContent } from "@/content/landing";
+import navLogo from "@/assets/nav-logo.png";
 
 export function Nav() {
   return (
     <nav className="sticky top-0 z-50 w-full border-b-4 border-fun-ink/10 bg-fun-cream/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <span />
+        <a href="#top" className="flex items-center">
+          <img
+            src={navLogo}
+            alt="ЩуроБъркотия"
+            className="h-20 w-auto md:h-28"
+          />
+        </a>
         <ul className="hidden items-center gap-3 md:flex">
           {siteContent.nav.map((item) => (
             <li key={item.href}>

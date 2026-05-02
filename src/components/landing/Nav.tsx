@@ -6,19 +6,17 @@ export function Nav() {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <a
           href="#top"
-          className="font-display text-2xl font-bold text-fun-ink md:text-3xl"
+          className="inline-block -rotate-2 rounded-full border-4 border-fun-ink bg-fun-yellow px-5 py-2 font-display text-2xl font-bold text-fun-ink shadow-[4px_4px_0_rgb(0_0_0_/_0.85)] transition-transform hover:rotate-0 md:text-3xl"
           style={{ letterSpacing: "-0.02em" }}
         >
-          <span className="text-fun-red">Щуро</span>
-          <span className="text-fun-purple">Бъркотия</span>
-          <span className="ml-1">🎉</span>
+          ЩуроБъркотия 🎉
         </a>
-        <ul className="hidden items-center gap-2 md:flex">
+        <ul className="hidden items-center gap-3 md:flex">
           {siteContent.nav.map((item) => (
             <li key={item.href}>
               <a
                 href={item.href}
-                className="rounded-full px-4 py-2 font-display font-semibold text-fun-ink transition-colors hover:bg-fun-yellow"
+                className="inline-block -rotate-2 rounded-full border-4 border-fun-ink bg-fun-yellow px-4 py-2 font-display font-bold text-fun-ink shadow-[4px_4px_0_rgb(0_0_0_/_0.85)] transition-transform hover:-translate-y-0.5 hover:rotate-0"
               >
                 {item.label}
               </a>

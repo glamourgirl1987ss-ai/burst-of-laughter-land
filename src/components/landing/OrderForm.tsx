@@ -59,7 +59,7 @@ export function OrderForm() {
   const fields: Array<{ key: keyof FormData; label: string; placeholder: string; type?: string }> = [
     { key: "name", label: "Име", placeholder: "Иван Иванов" },
     { key: "phone", label: "Телефон", placeholder: "+359 88 123 4567", type: "tel" },
-    { key: "address", label: "Адрес", placeholder: "ул. „Веселие" 1, София" },
+    { key: "address", label: "Адрес", placeholder: "ул. Веселие 1, София" },
   ];
 
   return (

@@ -9,7 +9,7 @@ export function Nav() {
           <img
             src={titleLogo}
             alt="ЩуроБъркотия"
-            className="h-12 w-auto animate-title-float drop-shadow-[0_4px_0_rgb(0_0_0_/_0.15)] md:h-16"
+            className="h-20 w-auto drop-shadow-[0_4px_0_rgb(0_0_0_/_0.15)] md:h-28"
           />
         </a>
         <ul className="hidden items-center gap-3 md:flex">

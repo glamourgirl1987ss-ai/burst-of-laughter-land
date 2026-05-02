@@ -1,4 +1,5 @@
 import { siteContent } from "@/content/landing";
+import { SplashBg } from "./SplashBg";
 
 const stepColors = ["bg-fun-yellow", "bg-fun-blue", "bg-fun-red", "bg-fun-purple"];
 const stepText = ["text-fun-ink", "text-white", "text-white", "text-white"];
@@ -10,7 +11,8 @@ export function HowToPlay() {
       id="how"
       className="relative overflow-hidden bg-fun-pink/30 px-4 py-20 md:py-28"
     >
-      <div className="mx-auto max-w-6xl">
+      <SplashBg variant="warm" />
+      <div className="relative z-10 mx-auto max-w-6xl">
         <h2
           className="text-center font-display text-4xl font-bold text-fun-ink md:text-6xl"
           style={{ letterSpacing: "-0.02em" }}

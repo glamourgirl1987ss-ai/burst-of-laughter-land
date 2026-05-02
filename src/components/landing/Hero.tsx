@@ -1,9 +1,9 @@
 import { siteContent } from "@/content/landing";
 import emojiPattern from "@/assets/emoji-pattern.png";
+import titleLogo from "@/assets/title-logo.png";
 
 export function Hero() {
   const { hero } = siteContent;
-  const titleLetters = Array.from(hero.title);
   return (
     <section
       id="top"
@@ -16,17 +16,12 @@ export function Hero() {
       }}
     >
       <div className="relative z-10 mx-auto max-w-4xl text-center">
-        <h1 className="fun-title text-6xl sm:text-7xl md:text-8xl lg:text-9xl">
-          {titleLetters.map((ch, i) => (
-            <span
-              key={i}
-              className="fun-title-letter"
-              style={{ animationDelay: `${i * 0.08}s` }}
-            >
-              {ch === " " ? "\u00A0" : ch}
-            </span>
-          ))}
-        </h1>
+        <h1 className="sr-only">{hero.title}</h1>
+        <img
+          src={titleLogo}
+          alt={hero.title}
+          className="mx-auto w-full max-w-3xl drop-shadow-[0_8px_0_rgb(0_0_0_/_0.15)] animate-title-float"
+        />
         <div className="mt-6 inline-block -rotate-2 rounded-2xl border-4 border-fun-ink bg-fun-yellow px-5 py-2 shadow-[6px_6px_0_rgb(0_0_0_/_0.85)] md:px-7 md:py-3">
           <p className="font-display text-xl font-extrabold text-fun-ink md:text-3xl">
             🤪 {hero.tagline} 💥

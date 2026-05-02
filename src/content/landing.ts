@@ -1,5 +1,6 @@
 import cardYellowCat from "@/assets/card-yellow-cat.png";
 import cardBlueFunny from "@/assets/card-blue-funny.png";
+import cardRedTiptoe from "@/assets/card-red-tiptoe.png";
 
 // Easy-to-edit content for the ЩуроБъркотия landing page.
 // Update copy, cards, steps, features and gallery here.
@@ -46,7 +47,7 @@ export const siteContent = {
         title: "Червени",
         subtitle: "Какво правя",
         rotation: "-rotate-3",
-        image: null,
+        image: cardRedTiptoe,
       },
     ],
     bonus: {

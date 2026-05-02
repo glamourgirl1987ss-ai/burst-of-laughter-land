@@ -21,14 +21,14 @@ export function About() {
       }}
     >
       <div className="relative z-10 mx-auto max-w-6xl">
-        <div className="text-center">
+        <div className="flex flex-col items-center text-center">
           <h2
-            className="font-display text-4xl font-bold text-fun-ink md:text-6xl"
+            className="inline-block -rotate-2 rounded-full border-4 border-fun-ink bg-fun-yellow px-8 py-3 font-display text-4xl font-bold text-fun-ink shadow-[6px_6px_0_rgb(0_0_0_/_0.85)] md:px-12 md:py-5 md:text-6xl"
             style={{ letterSpacing: "-0.02em" }}
           >
             {about.heading} <span className="inline-block">🎲</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl font-display text-lg font-semibold text-fun-ink/80 md:text-xl">
+          <p className="mx-auto mt-8 inline-block max-w-2xl rotate-1 rounded-3xl border-4 border-fun-ink bg-fun-yellow px-6 py-4 font-display text-lg font-bold text-fun-ink shadow-[6px_6px_0_rgb(0_0_0_/_0.85)] md:text-xl">
             {about.intro}
           </p>
         </div>

@@ -18,12 +18,14 @@ export function HowToPlay() {
       }}
     >
       <div className="relative z-10 mx-auto max-w-6xl">
-        <h2
-          className="text-center font-display text-4xl font-bold text-fun-ink md:text-6xl"
-          style={{ letterSpacing: "-0.02em" }}
-        >
-          {how.heading} 🎮
-        </h2>
+        <div className="flex justify-center">
+          <h2
+            className="inline-block -rotate-2 rounded-full border-4 border-fun-ink bg-fun-yellow px-8 py-3 font-display text-4xl font-bold text-fun-ink shadow-[6px_6px_0_rgb(0_0_0_/_0.85)] md:px-12 md:py-5 md:text-6xl"
+            style={{ letterSpacing: "-0.02em" }}
+          >
+            {how.heading} 🎮
+          </h2>
+        </div>
         <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {how.steps.map((step, i) => (
             <div

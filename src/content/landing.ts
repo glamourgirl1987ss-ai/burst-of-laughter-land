@@ -1,6 +1,7 @@
 import cardYellowRobot from "@/assets/card-yellow-robot.png";
 import cardBlueFunny from "@/assets/card-blue-funny.png";
 import cardRedTiptoe from "@/assets/card-red-tiptoe.png";
+import gallery1 from "@/assets/gallery-1.png";
 
 // Easy-to-edit content for the ЩуроБъркотия landing page.
 // Update copy, cards, steps, features and gallery here.
@@ -68,7 +69,7 @@ export const siteContent = {
     heading: "Виж как се забавляват децата",
     // Replace these placeholder URLs with real photos later.
     images: [
-      { src: "https://placehold.co/600x600/FFD93D/2A2A2A?text=📸+1", alt: "Снимка 1" },
+      { src: gallery1, alt: "Снимка 1" },
       { src: "https://placehold.co/600x600/4ECDC4/2A2A2A?text=📸+2", alt: "Снимка 2" },
       { src: "https://placehold.co/600x600/FF6B6B/FFFFFF?text=📸+3", alt: "Снимка 3" },
     ],

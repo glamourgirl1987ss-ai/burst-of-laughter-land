@@ -32,23 +32,40 @@ export function About() {
                 className={`group relative ${card.rotation} transition-transform hover:rotate-0 hover:-translate-y-2 hover:scale-105`}
               >
                 <div
-                  className={`relative aspect-[3/4] rounded-3xl ${c.bg} ${c.text} p-6 shadow-[0_12px_0_rgb(0_0_0_/_0.15)] ring-4 ${c.ring}`}
+                  className={`relative aspect-[3/4] overflow-hidden rounded-3xl ${c.bg} ${c.text} shadow-[0_12px_0_rgb(0_0_0_/_0.15)] ring-4 ${c.ring}`}
                 >
-                  <div className="flex h-full flex-col items-center justify-center text-center">
-                    <span className="text-7xl drop-shadow-md">{card.emoji}</span>
-                    <h3 className="mt-6 font-display text-3xl font-bold md:text-4xl">
-                      {card.title}
-                    </h3>
-                    <p className="mt-2 font-display text-xl font-semibold opacity-90">
-                      {card.subtitle}
-                    </p>
-                  </div>
-                  <div className="absolute right-3 top-3 font-display text-2xl font-bold opacity-30">
-                    ?
-                  </div>
-                  <div className="absolute bottom-3 left-3 rotate-180 font-display text-2xl font-bold opacity-30">
-                    ?
-                  </div>
+                  {card.image ? (
+                    <img
+                      src={card.image}
+                      alt={`${card.title} – ${card.subtitle}`}
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-full flex-col items-center justify-center p-6 text-center">
+                      <span className="text-7xl drop-shadow-md">{card.emoji}</span>
+                      <h3 className="mt-6 font-display text-3xl font-bold md:text-4xl">
+                        {card.title}
+                      </h3>
+                      <p className="mt-2 font-display text-xl font-semibold opacity-90">
+                        {card.subtitle}
+                      </p>
+                      <div className="absolute right-3 top-3 font-display text-2xl font-bold opacity-30">
+                        ?
+                      </div>
+                      <div className="absolute bottom-3 left-3 rotate-180 font-display text-2xl font-bold opacity-30">
+                        ?
+                      </div>
+                    </div>
+                  )}
+                </div>
+                {/* Caption under the card */}
+                <div className="mt-4 text-center">
+                  <h3 className="font-display text-2xl font-bold text-fun-ink md:text-3xl">
+                    {card.title}
+                  </h3>
+                  <p className="font-display text-base font-semibold text-fun-ink/70 md:text-lg">
+                    {card.subtitle}
+                  </p>
                 </div>
               </div>
             );

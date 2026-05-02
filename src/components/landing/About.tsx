@@ -1,4 +1,5 @@
 import { siteContent, type CardColor } from "@/content/landing";
+import { SplashBg } from "./SplashBg";
 
 const colorMap: Record<CardColor, { bg: string; text: string; ring: string }> = {
   yellow: { bg: "bg-fun-yellow", text: "text-fun-ink", ring: "ring-fun-ink/10" },
@@ -10,6 +11,7 @@ export function About() {
   const { about } = siteContent;
   return (
     <section id="about" className="relative overflow-hidden bg-fun-cream px-4 py-20 md:py-28">
+      <SplashBg variant="rainbow" />
       <div className="relative z-10 mx-auto max-w-6xl">
         <div className="text-center">
           <h2

@@ -193,18 +193,18 @@
 
 .fun-title {
   font-family: var(--font-fun);
-  background: linear-gradient(180deg, #FFE94A 0%, #FF8A1F 45%, #FF3B6B 75%, #B028FF 100%);
+  background: linear-gradient(180deg, #FFD93D 0%, #FF6B35 40%, #E63462 70%, #7B2CBF 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow:
-    4px 4px 0 rgba(0, 0, 0, 0.18);
   filter:
-    drop-shadow(2px 2px 0 #1a1033)
-    drop-shadow(-2px 0 0 #1a1033)
-    drop-shadow(0 -2px 0 #1a1033)
-    drop-shadow(0 2px 0 #1a1033)
-    drop-shadow(2px 0 0 #1a1033);
+    drop-shadow(3px 0 0 #ffffff)
+    drop-shadow(-3px 0 0 #ffffff)
+    drop-shadow(0 3px 0 #ffffff)
+    drop-shadow(0 -3px 0 #ffffff)
+    drop-shadow(3px 3px 0 #1a1033)
+    drop-shadow(-3px -3px 0 #1a1033)
+    drop-shadow(6px 6px 0 rgba(26, 16, 51, 0.35));
   letter-spacing: 0.01em;
   line-height: 0.95;
 }

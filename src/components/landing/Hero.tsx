@@ -10,17 +10,17 @@ export function Hero() {
       className="relative isolate flex min-h-[92vh] items-center justify-center overflow-hidden px-4 py-16 md:py-24"
       style={{
         backgroundImage: `url(${emojiPattern})`,
-        backgroundSize: "cover",
+        backgroundSize: "contain",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="relative z-10 mx-auto max-w-4xl text-center pt-16 md:pt-24">
+      <div className="relative z-10 mx-auto max-w-4xl text-center">
         <h1 className="sr-only">{hero.title}</h1>
         <img
           src={titleLogo}
           alt={hero.title}
-          className="mx-auto w-full max-w-3xl drop-shadow-[0_8px_0_rgb(0_0_0_/_0.15)] animate-title-float"
+          className="mx-auto w-full max-w-2xl drop-shadow-[0_8px_0_rgb(0_0_0_/_0.15)] animate-title-float"
         />
         <div className="mt-6 inline-block -rotate-2 rounded-2xl border-4 border-fun-ink bg-fun-yellow px-5 py-2 shadow-[6px_6px_0_rgb(0_0_0_/_0.85)] md:px-7 md:py-3">
           <p className="font-display text-xl font-extrabold text-fun-ink md:text-3xl">

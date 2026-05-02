@@ -1,12 +1,17 @@
 import { siteContent } from "@/content/landing";
+import { SplashBg } from "./SplashBg";
 
 const tilts = ["-rotate-2", "rotate-1", "-rotate-1", "rotate-2", "-rotate-3", "rotate-1"];
 
 export function Gallery() {
   const { gallery } = siteContent;
   return (
-    <section id="gallery" className="bg-fun-cream px-4 py-20 md:py-28">
-      <div className="mx-auto max-w-6xl">
+    <section
+      id="gallery"
+      className="relative overflow-hidden bg-fun-cream px-4 py-20 md:py-28"
+    >
+      <SplashBg variant="cool" />
+      <div className="relative z-10 mx-auto max-w-6xl">
         <h2
           className="text-center font-display text-4xl font-bold text-fun-ink md:text-6xl"
           style={{ letterSpacing: "-0.02em" }}

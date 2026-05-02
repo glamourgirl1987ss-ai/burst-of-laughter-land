@@ -1,10 +1,12 @@
 import { siteContent } from "@/content/landing";
+import { SplashBg } from "./SplashBg";
 
 export function Product() {
   const { product } = siteContent;
   return (
     <section className="relative overflow-hidden bg-fun-blue/20 px-4 py-20 md:py-28">
-      <div className="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-2">
+      <SplashBg variant="rainbow" />
+      <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-2">
         {/* Box mockup */}
         <div className="relative mx-auto w-full max-w-sm">
           <div className="absolute inset-0 -rotate-6 rounded-[2rem] bg-fun-yellow shadow-2xl" />

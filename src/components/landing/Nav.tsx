@@ -4,12 +4,7 @@ export function Nav() {
   return (
     <nav className="sticky top-0 z-50 w-full border-b-4 border-fun-ink/10 bg-fun-cream/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <a
-          href="#top"
-          className="font-display text-2xl font-extrabold tracking-tight text-fun-ink md:text-3xl"
-        >
-          {siteContent.brand}
-        </a>
+        <span />
         <ul className="hidden items-center gap-3 md:flex">
           {siteContent.nav.map((item) => (
             <li key={item.href}>

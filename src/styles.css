@@ -68,6 +68,7 @@
   --color-fun-ink: var(--fun-ink);
   --font-display: "Fredoka", "Baloo 2", system-ui, sans-serif;
   --font-body: "Baloo 2", "Fredoka", system-ui, sans-serif;
+  --font-fun: "Bagel Fat One", "Lilita One", "Fredoka", system-ui, sans-serif;
   --animate-float: float 6s ease-in-out infinite;
   --animate-float-slow: float 9s ease-in-out infinite;
   --animate-wiggle: wiggle 2.5s ease-in-out infinite;
@@ -178,4 +179,37 @@
 @keyframes pop-in {
   0% { transform: scale(0.6) rotate(-6deg); opacity: 0; }
   100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+@keyframes title-bounce {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+
+@keyframes tagline-wobble {
+  0%, 100% { transform: rotate(-1.5deg); }
+  50% { transform: rotate(1.5deg); }
+}
+
+.fun-title {
+  font-family: var(--font-fun);
+  background: linear-gradient(180deg, #FFE94A 0%, #FF8A1F 45%, #FF3B6B 75%, #B028FF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow:
+    4px 4px 0 rgba(0, 0, 0, 0.18);
+  filter:
+    drop-shadow(2px 2px 0 #1a1033)
+    drop-shadow(-2px 0 0 #1a1033)
+    drop-shadow(0 -2px 0 #1a1033)
+    drop-shadow(0 2px 0 #1a1033)
+    drop-shadow(2px 0 0 #1a1033);
+  letter-spacing: 0.01em;
+  line-height: 0.95;
+}
+
+.fun-title-letter {
+  display: inline-block;
+  animation: title-bounce 2.6s ease-in-out infinite;
 }

@@ -71,9 +71,6 @@ export const siteContent = {
       { src: "https://placehold.co/600x600/FFD93D/2A2A2A?text=📸+1", alt: "Снимка 1" },
       { src: "https://placehold.co/600x600/4ECDC4/2A2A2A?text=📸+2", alt: "Снимка 2" },
       { src: "https://placehold.co/600x600/FF6B6B/FFFFFF?text=📸+3", alt: "Снимка 3" },
-      { src: "https://placehold.co/600x600/A66DD4/FFFFFF?text=📸+4", alt: "Снимка 4" },
-      { src: "https://placehold.co/600x600/FF8FB1/2A2A2A?text=📸+5", alt: "Снимка 5" },
-      { src: "https://placehold.co/600x600/FFD93D/2A2A2A?text=📸+6", alt: "Снимка 6" },
     ],
   },
   product: {

@@ -11,7 +11,7 @@ export function Gallery() {
       className="relative overflow-hidden px-4 py-20 md:py-28"
       style={{
         backgroundImage: `url(${emojiPattern})`,
-        backgroundSize: "cover",
+        backgroundSize: "100% 100%",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}

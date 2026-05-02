@@ -27,9 +27,6 @@ export function Hero() {
             🤪 {hero.tagline} 💥
           </p>
         </div>
-        <p className="mt-4 font-display text-2xl font-bold text-fun-ink drop-shadow-[0_2px_0_rgb(255_255_255_/_0.8)] md:text-4xl">
-          {hero.subtitle}
-        </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <a
             href="#order"

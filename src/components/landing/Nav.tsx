@@ -1,15 +1,16 @@
 import { siteContent } from "@/content/landing";
+import titleLogo from "@/assets/title-logo.png";
 
 export function Nav() {
   return (
     <nav className="sticky top-0 z-50 w-full border-b-4 border-fun-ink/10 bg-fun-cream/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <a
-          href="#top"
-          className="inline-block -rotate-2 rounded-full border-4 border-fun-ink bg-fun-yellow px-5 py-2 font-display text-2xl font-bold text-fun-ink shadow-[4px_4px_0_rgb(0_0_0_/_0.85)] transition-transform hover:rotate-0 md:text-3xl"
-          style={{ letterSpacing: "-0.02em" }}
-        >
-          ЩуроБъркотия 🎉
+        <a href="#top" className="flex items-center">
+          <img
+            src={titleLogo}
+            alt="ЩуроБъркотия"
+            className="h-12 w-auto animate-title-float drop-shadow-[0_4px_0_rgb(0_0_0_/_0.15)] md:h-16"
+          />
         </a>
         <ul className="hidden items-center gap-3 md:flex">
           {siteContent.nav.map((item) => (

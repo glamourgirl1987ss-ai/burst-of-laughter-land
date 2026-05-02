@@ -47,15 +47,19 @@ export function Product() {
 
         {/* Features */}
         <div>
-          <h2
-            className="font-display text-4xl font-bold text-fun-ink md:text-5xl"
-            style={{ letterSpacing: "-0.02em" }}
-          >
-            {product.heading} 📦
-          </h2>
-          <p className="mt-4 font-display text-lg font-semibold text-fun-ink/80">
-            {product.description}
-          </p>
+          <div className="flex justify-start">
+            <h2
+              className="inline-block -rotate-2 rounded-full border-4 border-fun-ink bg-fun-yellow px-8 py-3 font-display text-4xl font-bold text-fun-ink shadow-[6px_6px_0_rgb(0_0_0_/_0.85)] md:px-10 md:py-4 md:text-5xl"
+              style={{ letterSpacing: "-0.02em" }}
+            >
+              {product.heading} 📦
+            </h2>
+          </div>
+          <div className="mt-6 flex justify-start">
+            <p className="inline-block rotate-1 rounded-3xl border-4 border-fun-ink bg-fun-yellow px-6 py-3 font-display text-lg font-bold text-fun-ink shadow-[6px_6px_0_rgb(0_0_0_/_0.85)]">
+              {product.description}
+            </p>
+          </div>
           <ul className="mt-8 space-y-4">
             {product.features.map((f) => (
               <li

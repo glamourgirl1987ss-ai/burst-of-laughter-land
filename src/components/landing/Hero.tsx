@@ -1,6 +1,7 @@
 import { siteContent } from "@/content/landing";
 import { FloatingEmojis } from "./FloatingEmojis";
 import { SplashBg } from "./SplashBg";
+import logo from "@/assets/logo.png";
 
 export function Hero() {
   const { hero } = siteContent;
@@ -15,14 +16,13 @@ export function Hero() {
         <span className="inline-block rounded-full border-4 border-fun-ink/10 bg-white px-4 py-1.5 font-display text-sm font-bold tracking-wide text-fun-purple shadow-md">
           🃏 КАРТОВА ИГРА ЗА СМЯХ 🃏
         </span>
-        <h1
-          className="mt-6 font-display text-5xl font-bold leading-[0.95] text-fun-ink md:text-7xl lg:text-8xl"
-          style={{ letterSpacing: "-0.03em" }}
-        >
-          <span className="inline-block animate-[wiggle_3s_ease-in-out_infinite] text-fun-red">
-            Щуро
-          </span>
-          <span className="inline-block text-fun-purple">Бъркотия</span>
+        <h1 className="mt-6">
+          <span className="sr-only">ЩуроБъркотия</span>
+          <img
+            src={logo}
+            alt="ЩуроБъркотия"
+            className="mx-auto w-full max-w-2xl animate-[wiggle_3s_ease-in-out_infinite] drop-shadow-xl md:max-w-3xl"
+          />
         </h1>
         <p className="mx-auto mt-4 max-w-2xl font-display text-xl font-semibold text-fun-ink md:text-2xl">
           {hero.tagline} 💥

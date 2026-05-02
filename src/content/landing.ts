@@ -3,6 +3,7 @@ import cardBlueFunny from "@/assets/card-blue-funny.png";
 import cardRedTiptoe from "@/assets/card-red-tiptoe.png";
 import gallery1 from "@/assets/gallery-1.png";
 import gallery2 from "@/assets/gallery-2.png";
+import gallery3 from "@/assets/gallery-3.png";
 
 // Easy-to-edit content for the ЩуроБъркотия landing page.
 // Update copy, cards, steps, features and gallery here.
@@ -72,7 +73,7 @@ export const siteContent = {
     images: [
       { src: gallery1, alt: "Снимка 1" },
       { src: gallery2, alt: "Снимка 2" },
-      { src: "https://placehold.co/600x600/FF6B6B/FFFFFF?text=📸+3", alt: "Снимка 3" },
+      { src: gallery3, alt: "Снимка 3" },
     ],
   },
   product: {

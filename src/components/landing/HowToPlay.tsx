@@ -29,7 +29,7 @@ export function HowToPlay() {
                 {i + 1}
               </div>
               <div className="mt-2 text-5xl">{step.emoji}</div>
-              <p className="mt-4 font-display text-lg font-bold leading-snug md:text-xl">
+              <p className="mt-4 font-display leading-snug md:text-xl font-serif text-3xl font-extrabold text-center">
                 {step.text}
               </p>
             </div>

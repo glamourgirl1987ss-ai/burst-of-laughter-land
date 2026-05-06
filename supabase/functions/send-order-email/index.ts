@@ -35,7 +35,6 @@ Deno.serve(async (req) => {
         hostname: "eu1001.jethosting.com",
         port: 587,
         tls: false,
-        starttls: true,
         auth: { username, password },
       },
     });

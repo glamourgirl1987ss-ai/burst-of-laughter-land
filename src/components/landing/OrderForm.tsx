@@ -4,6 +4,19 @@ import { toast } from "sonner";
 import { siteContent } from "@/content/landing";
 import emojiPattern from "@/assets/emoji-pattern.png";
 
+const FORMINIT_FORM_ID = "z5mu0doe7hm";
+
+declare global {
+  interface Window {
+    forminit?: {
+      submit: (
+        formId: string,
+        payload: any,
+      ) => Promise<{ data?: unknown; redirectUrl?: string; error?: { message?: string } }>;
+    };
+  }
+}
+
 const orderSchema = z.object({
   name: z
     .string()
@@ -50,11 +63,25 @@ export function OrderForm() {
       return;
     }
     setSubmitting(true);
-    // TODO: wire up to backend / email integration later.
-    await new Promise((r) => setTimeout(r, 600));
-    toast.success(order.success);
-    setData({ name: "", phone: "", address: "" });
-    setSubmitting(false);
+    try {
+      if (!window.forminit) {
+        throw new Error("Forminit SDK не е заредено");
+      }
+      const fd = new FormData();
+      fd.append("fi-sender-fullName", result.data.name);
+      fd.append("fi-text-phone", result.data.phone);
+      fd.append("fi-text-address", result.data.address);
+      const res = await window.forminit.submit(FORMINIT_FORM_ID, fd);
+      if (res?.error) {
+        throw new Error(res.error.message || "Грешка при изпращане");
+      }
+      toast.success(order.success);
+      setData({ name: "", phone: "", address: "" });
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Възникна грешка. Опитай отново.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   const fields: Array<{ key: keyof FormData; label: string; placeholder: string; type?: string }> = [

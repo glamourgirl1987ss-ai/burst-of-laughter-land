@@ -3,19 +3,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { siteContent } from "@/content/landing";
 import emojiPattern from "@/assets/emoji-pattern.png";
-
-const FORMINIT_FORM_ID = "z5mu0doe7hm";
-
-declare global {
-  interface Window {
-    forminit?: {
-      submit: (
-        formId: string,
-        payload: any,
-      ) => Promise<{ data?: unknown; redirectUrl?: string; error?: { message?: string } }>;
-    };
-  }
-}
+import { supabase } from "@/integrations/supabase/client";
 
 const orderSchema = z.object({
   name: z
@@ -64,21 +52,16 @@ export function OrderForm() {
     }
     setSubmitting(true);
     try {
-      if (!window.forminit) {
-        throw new Error("Forminit SDK не е заредено");
+      const { data: res, error } = await supabase.functions.invoke("send-order-email", {
+        body: result.data,
+      });
+      if (error || (res && (res as any).error)) {
+        throw new Error("send failed");
       }
-      const fd = new FormData();
-      fd.append("fi-sender-fullName", result.data.name);
-      fd.append("fi-text-phone", result.data.phone);
-      fd.append("fi-text-address", result.data.address);
-      const res = await window.forminit.submit(FORMINIT_FORM_ID, fd);
-      if (res?.error) {
-        throw new Error(res.error.message || "Грешка при изпращане");
-      }
-      toast.success(order.success);
+      toast.success("Благодарим! Поръчката е изпратена успешно.");
       setData({ name: "", phone: "", address: "" });
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Възникна грешка. Опитай отново.");
+      toast.error("Възникна грешка при изпращане.");
     } finally {
       setSubmitting(false);
     }

@@ -63,6 +63,9 @@ export const Route = createRootRoute({
         href: "https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Lilita+One&family=Fredoka:wght@500;600;700&family=Baloo+2:wght@500;600;700;800&display=swap",
       },
     ],
+    scripts: [
+      { src: "https://cdn.forminit.com/sdk.js", async: true },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,

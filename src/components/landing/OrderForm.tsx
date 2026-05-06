@@ -71,7 +71,10 @@ export function OrderForm() {
       fd.append("fi-sender-fullName", result.data.name);
       fd.append("fi-text-phone", result.data.phone);
       fd.append("fi-text-address", result.data.address);
-      const res = await window.forminit.submit(FORMINIT_FORM_ID, fd);
+      const res = await (window.forminit.submit as (
+        formId: string,
+        payload: FormData,
+      ) => Promise<{ error?: { message?: string } }>)(FORMINIT_FORM_ID, fd);
       if (res?.error) {
         throw new Error(res.error.message || "Грешка при изпращане");
       }

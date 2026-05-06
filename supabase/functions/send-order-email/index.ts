@@ -33,8 +33,8 @@ Deno.serve(async (req) => {
     const client = new SMTPClient({
       connection: {
         hostname: "eu1001.jethosting.com",
-        port: 25,
-        tls: false,
+        port: 465,
+        tls: true,
         auth: { username, password },
       },
     });

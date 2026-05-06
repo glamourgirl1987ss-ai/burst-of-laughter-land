@@ -41,10 +41,14 @@ Deno.serve(async (req) => {
 
     const subject = `Нова поръчка от ${name}`;
     const text = `Име: ${name}\nТелефон: ${phone}\nАдрес: ${address}`;
-    const html = `<h2>Нова поръчка - ЩуроБъркотия</h2>
-      <p><strong>Име:</strong> ${name}</p>
-      <p><strong>Телефон:</strong> ${phone}</p>
-      <p><strong>Адрес:</strong> ${address}</p>`;
+    const html = `<!DOCTYPE html>
+<html lang="bg"><head><meta charset="UTF-8"></head>
+<body style="font-family:Arial,sans-serif;color:#222;">
+  <h2>Нова поръчка - ЩуроБъркотия</h2>
+  <p><strong>Име:</strong> ${name}</p>
+  <p><strong>Телефон:</strong> ${phone}</p>
+  <p><strong>Адрес:</strong> ${address}</p>
+</body></html>`;
 
     await client.send({
       from: username,
@@ -53,6 +57,21 @@ Deno.serve(async (req) => {
       subject,
       content: text,
       html,
+      mimeContent: [
+        {
+          mimeType: 'text/plain; charset="utf-8"',
+          content: text,
+          transferEncoding: "8bit",
+        },
+        {
+          mimeType: 'text/html; charset="utf-8"',
+          content: html,
+          transferEncoding: "8bit",
+        },
+      ],
+      headers: {
+        "MIME-Version": "1.0",
+      },
     });
 
     await client.close();

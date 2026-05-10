@@ -32,8 +32,7 @@ export const Route = createRootRoute({
       { title: "ЩуроБъркотия – играта, която ще ви взриви от смях" },
       {
         name: "description",
-        content:
-          "ЩуроБъркотия – забавната картова игра за деца и възрастни. Играй! Смей се! Познай! Поръчай онлайн.",
+        content: "ЩуроБъркотия – забавната картова игра за деца и възрастни. Играй! Смей се! Познай! Поръчай онлайн.",
       },
       { name: "author", content: "ЩуроБъркотия" },
       { property: "og:title", content: "ЩуроБъркотия – играта, която ще ви взриви от смях" },
@@ -45,11 +44,31 @@ export const Route = createRootRoute({
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "ЩуроБъркотия – играта, която ще ви взриви от смях" },
-      { name: "description", content: "Търсиш игра, която да събере всички и да ги разсмее до сълзи? 🎉 'ЩуроБъркотия' е перфектната комбинация от въображение, актьорска игра и безкраен смях!" },
-      { property: "og:description", content: "Търсиш игра, която да събере всички и да ги разсмее до сълзи? 🎉 'ЩуроБъркотия' е перфектната комбинация от въображение, актьорска игра и безкраен смях!" },
-      { name: "twitter:description", content: "Търсиш игра, която да събере всички и да ги разсмее до сълзи? 🎉 'ЩуроБъркотия' е перфектната комбинация от въображение, актьорска игра и безкраен смях!" },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/9eWlVQe91whCG9pgGa7NADbKYVJ3/social-images/social-1777811037982-ChatGPT_Image_2.05.2026_г.,_19_40_13.webp" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/9eWlVQe91whCG9pgGa7NADbKYVJ3/social-images/social-1777811037982-ChatGPT_Image_2.05.2026_г.,_19_40_13.webp" },
+      {
+        name: "description",
+        content:
+          "Търсиш игра, която да събере всички и да ги разсмее до сълзи? 🎉 'ЩуроБъркотия' е перфектната комбинация от въображение, актьорска игра и безкраен смях!",
+      },
+      {
+        property: "og:description",
+        content:
+          "Търсиш игра, която да събере всички и да ги разсмее до сълзи? 🎉 'ЩуроБъркотия' е перфектната комбинация от въображение, актьорска игра и безкраен смях!",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "Търсиш игра, която да събере всички и да ги разсмее до сълзи? 🎉 'ЩуроБъркотия' е перфектната комбинация от въображение, актьорска игра и безкраен смях!",
+      },
+      {
+        property: "og:image",
+        content:
+          "https://storage.googleapis.com/gpt-engineer-file-uploads/9eWlVQe91whCG9pgGa7NADbKYVJ3/social-images/social-1777811037982-ChatGPT_Image_2.05.2026_г.,_19_40_13.webp",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://storage.googleapis.com/gpt-engineer-file-uploads/9eWlVQe91whCG9pgGa7NADbKYVJ3/social-images/social-1777811037982-ChatGPT_Image_2.05.2026_г.,_19_40_13.webp",
+      },
     ],
     links: [
       {
@@ -62,10 +81,9 @@ export const Route = createRootRoute({
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Lilita+One&family=Fredoka:wght@500;600;700&family=Baloo+2:wght@500;600;700;800&display=swap",
       },
+      { rel: "icon", href: "/public/favicon.ico" },
     ],
-    scripts: [
-      { src: "https://cdn.forminit.com/sdk.js", async: true },
-    ],
+    scripts: [{ src: "https://cdn.forminit.com/sdk.js", async: true }],
   }),
   shellComponent: RootShell,
   component: RootComponent,

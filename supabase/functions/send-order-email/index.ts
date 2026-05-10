@@ -42,8 +42,8 @@ Deno.serve(async (req) => {
       });
     }
 
-    const username = Deno.env.get("SMTP_USERNAME");
-    const password = Deno.env.get("SMTP_PASSWORD");
+    //const username = Deno.env.get("SMTP_USERNAME");
+    //const password = Deno.env.get("SMTP_PASSWORD");
 
     if (!username || !password) {
       throw new Error("Missing SMTP credentials");
@@ -91,7 +91,7 @@ Deno.serve(async (req) => {
       // Test also with Gmail:
       // to: "yourgmail@gmail.com",
 
-      replyTo: username,
+      replyTo: "business.advanc3d@gmail.com",
       subject: "Нова поръчка - ЩуроБъркотия",
 
       // HTML only — no text version

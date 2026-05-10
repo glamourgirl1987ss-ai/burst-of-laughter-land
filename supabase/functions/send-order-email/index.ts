@@ -1,4 +1,4 @@
-import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
+import nodemailer from "npm:nodemailer@6.9.13";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -26,8 +26,6 @@ Deno.serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
-  let client: SMTPClient | null = null;
-
   try {
     const { name, phone, address } = (await req.json()) as OrderPayload;
 
@@ -45,15 +43,13 @@ Deno.serve(async (req) => {
       throw new Error("Missing SMTP credentials");
     }
 
-    client = new SMTPClient({
-      connection: {
-        hostname: "eu1001.jethosting.com",
-        port: 465,
-        tls: true,
-        auth: {
-          username,
-          password,
-        },
+    const transporter = nodemailer.createTransport({
+      host: "eu1001.jethosting.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: username,
+        pass: password,
       },
     });
 
@@ -63,29 +59,32 @@ Deno.serve(async (req) => {
 
     const subject = `Нова поръчка от ${name}`;
 
-    const text = ["Нова поръчка - ЩуроБъркотия", "", `Име: ${name}`, `Телефон: ${phone}`, `Адрес: ${address}`].join(
-      "\n",
-    );
+    const text = `Нова поръчка - ЩуроБъркотия
 
-    const html = `<!DOCTYPE html>
+Име: ${name}
+Телефон: ${phone}
+Адрес: ${address}`;
+
+    const html = `
+<!DOCTYPE html>
 <html lang="bg">
-<head>
-  <meta charset="UTF-8" />
-</head>
-<body style="font-family: Arial, sans-serif; color: #222; line-height: 1.5;">
-  <h2>Нова поръчка - ЩуроБъркотия</h2>
-  <p><strong>Име:</strong> ${safeName}</p>
-  <p><strong>Телефон:</strong> ${safePhone}</p>
-  <p><strong>Адрес:</strong> ${safeAddress}</p>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body style="font-family: Arial, sans-serif; color: #222; line-height: 1.5;">
+    <h2>Нова поръчка - ЩуроБъркотия</h2>
+    <p><strong>Име:</strong> ${safeName}</p>
+    <p><strong>Телефон:</strong> ${safePhone}</p>
+    <p><strong>Адрес:</strong> ${safeAddress}</p>
+  </body>
 </html>`;
 
-    await client.send({
-      from: username,
+    await transporter.sendMail({
+      from: `"ЩуроБъркотия" <${username}>`,
       to: username,
       replyTo: username,
       subject,
-      content: text,
+      text,
       html,
     });
 
@@ -105,9 +104,5 @@ Deno.serve(async (req) => {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       },
     );
-  } finally {
-    if (client) {
-      await client.close();
-    }
   }
 });

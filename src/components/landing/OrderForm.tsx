@@ -64,7 +64,7 @@ export function OrderForm() {
         throw new Error("send failed");
       }
       toast.success("Благодарим! Поръчката е изпратена успешно.");
-      setData({ name: "", phone: "", address: "" });
+      setData({ name: "", phone: "", email: "", address: "" });
     } catch (err) {
       toast.error("Възникна грешка при изпращане.");
     } finally {

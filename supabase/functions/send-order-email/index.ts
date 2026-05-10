@@ -92,7 +92,7 @@ Deno.serve(async (req) => {
 
     await client.send({
       from: username,
-      to: username,
+      to: "kristiqnenchevv@gmail.com",
       replyTo: username,
 
       // IMPORTANT: keep subject in Latin letters to avoid header encoding bugs

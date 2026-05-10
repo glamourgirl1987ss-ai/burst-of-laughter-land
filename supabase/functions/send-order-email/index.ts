@@ -54,12 +54,14 @@ Deno.serve(async (req) => {
     const safeAddress = escapeHtml(address.trim());
 
     const transporter = nodemailer.createTransport({
-      host: "eu1001.jethosting.com",
-      port: 25,
+      //host: "eu1001.jethosting.com",
+      //port: 25,
+      host: "smtp.gmail.com",
+      port: 587,
       secure: true,
       auth: {
-        user: username,
-        pass: password,
+        user: "business.advanc3d@gmail.com",
+        pass: "cgugpqljhcxtdcjm",
       },
       tls: {
         rejectUnauthorized: false,

@@ -1,125 +1,132 @@
-import nodemailer from "npm:nodemailer@6.9.13";
+import { useState } from "react";
+import { z } from "zod";
+import { toast } from "sonner";
+import { siteContent } from "@/content/landing";
+import emojiPattern from "@/assets/emoji-pattern.png";
+import { supabase } from "@/integrations/supabase/client";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
-};
-
-interface OrderPayload {
-  name: string;
-  phone: string;
-  address: string;
-}
-
-function escapeHtml(value: string) {
-  return value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
-
-Deno.serve(async (req) => {
-  if (req.method === "OPTIONS") {
-    return new Response(null, {
-      status: 204,
-      headers: corsHeaders,
-    });
-  }
-
-  try {
-    const { name, phone, address } = (await req.json()) as OrderPayload;
-
-    if (!name || !phone || !address) {
-      return new Response(JSON.stringify({ error: "Missing fields" }), {
-        status: 400,
-        headers: {
-          ...corsHeaders,
-          "Content-Type": "application/json; charset=utf-8",
-        },
-      });
-    }
-
-    const username = Deno.env.get("SMTP_USERNAME");
-    const password = Deno.env.get("SMTP_PASSWORD");
-
-    if (!username || !password) {
-      throw new Error("Missing SMTP credentials");
-    }
-
-    const safeName = escapeHtml(name.trim());
-    const safePhone = escapeHtml(phone.trim());
-    const safeAddress = escapeHtml(address.trim());
-
-    const transporter = nodemailer.createTransport({
-      host: "eu1001.jethosting.com",
-      port: 465,
-      secure: true,
-      auth: {
-        user: username,
-        pass: password,
-      },
-      tls: {
-        rejectUnauthorized: false,
-      },
-    });
-
-    const html = `<!DOCTYPE html>
-<html lang="bg">
-<head>
-  <meta charset="UTF-8">
-  <title>Нова поръчка</title>
-</head>
-<body style="margin:0;padding:20px;font-family:Arial,sans-serif;color:#222;background:#ffffff;">
-  <h2 style="margin:0 0 16px;">Нова поръчка - ЩуроБъркотия</h2>
-
-  <p><strong>Име:</strong> ${safeName}</p>
-  <p><strong>Телефон:</strong> ${safePhone}</p>
-  <p><strong>Адрес:</strong> ${safeAddress}</p>
-</body>
-</html>`;
-
-    await transporter.sendMail({
-      from: `"ЩуроБъркотия" <${username}>`,
-      to: username,
-
-      replyTo: username,
-      subject: "Нова поръчка - ЩуроБъркотия",
-
-      // HTML only — no text version
-      html,
-
-      encoding: "utf-8",
-
-      headers: {
-        "Content-Type": "text/html; charset=UTF-8",
-        "Content-Transfer-Encoding": "quoted-printable",
-      },
-    });
-
-    return new Response(JSON.stringify({ success: true }), {
-      status: 200,
-      headers: {
-        ...corsHeaders,
-        "Content-Type": "application/json; charset=utf-8",
-      },
-    });
-  } catch (err) {
-    console.error("send-order-email error:", err);
-
-    return new Response(
-      JSON.stringify({
-        error: err instanceof Error ? err.message : "Unknown error",
-      }),
-      {
-        status: 500,
-        headers: {
-          ...corsHeaders,
-          "Content-Type": "application/json; charset=utf-8",
-        },
-      },
-    );
-  }
+const orderSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(2, { message: "Моля, въведете име (поне 2 символа)" })
+    .max(100, { message: "Името е твърде дълго" }),
+  phone: z
+    .string()
+    .trim()
+    .min(6, { message: "Въведете валиден телефонен номер" })
+    .max(30, { message: "Телефонът е твърде дълъг" })
+    .regex(/^[+0-9\s\-()]+$/, { message: "Невалиден телефонен номер" }),
+  address: z
+    .string()
+    .trim()
+    .min(5, { message: "Адресът е твърде кратък" })
+    .max(300, { message: "Адресът е твърде дълъг" }),
 });
+
+type FormData = z.infer<typeof orderSchema>;
+type Errors = Partial<Record<keyof FormData, string>>;
+
+export function OrderForm() {
+  const { order } = siteContent;
+  const [data, setData] = useState<FormData>({ name: "", phone: "", address: "" });
+  const [errors, setErrors] = useState<Errors>({});
+  const [submitting, setSubmitting] = useState(false);
+
+  function update<K extends keyof FormData>(key: K, value: string) {
+    setData((d) => ({ ...d, [key]: value }));
+    if (errors[key]) setErrors((e) => ({ ...e, [key]: undefined }));
+  }
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const result = orderSchema.safeParse(data);
+    if (!result.success) {
+      const newErrors: Errors = {};
+      for (const issue of result.error.issues) {
+        const key = issue.path[0] as keyof FormData;
+        if (!newErrors[key]) newErrors[key] = issue.message;
+      }
+      setErrors(newErrors);
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const { data: res, error } = await supabase.functions.invoke("send-order-email", {
+        body: result.data,
+      });
+      if (error || (res && (res as any).error)) {
+        throw new Error("send failed");
+      }
+      toast.success("Благодарим! Поръчката е изпратена успешно.");
+      setData({ name: "", phone: "", address: "" });
+    } catch (err) {
+      toast.error("Възникна грешка при изпращане.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  const fields: Array<{ key: keyof FormData; label: string; placeholder: string; type?: string }> = [
+    { key: "name", label: "Име", placeholder: "Иван Иванов" },
+    { key: "phone", label: "Телефон", placeholder: "+359 88 123 4567", type: "tel" },
+    { key: "address", label: "Адрес", placeholder: "ул. Веселие 1, София" },
+  ];
+
+  return (
+    <section
+      id="order"
+      className="relative overflow-hidden px-4 py-20 md:py-28"
+      style={{
+        backgroundImage: `url(${emojiPattern})`,
+        backgroundSize: "100% 100%",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      <div className="relative z-10 mx-auto max-w-2xl">
+        <div className="rounded-3xl bg-white p-6 shadow-[0_20px_0_rgb(0_0_0_/_0.15)] ring-4 ring-fun-ink/10 md:p-10">
+          <div className="text-center">
+            <span className="text-5xl">🎁</span>
+            <h2
+              className="mt-2 font-display text-4xl font-bold text-fun-ink md:text-5xl"
+              style={{ letterSpacing: "-0.02em" }}
+            >
+              {order.heading}
+            </h2>
+            <p className="mt-3 font-display text-base font-semibold text-fun-ink/70 md:text-lg">{order.subheading}</p>
+          </div>
+
+          <form onSubmit={onSubmit} className="mt-8 space-y-5" noValidate>
+            {fields.map((f) => (
+              <div key={f.key}>
+                <label htmlFor={f.key} className="mb-1.5 block font-display text-sm font-bold text-fun-ink">
+                  {f.label}
+                </label>
+                <input
+                  id={f.key}
+                  type={f.type ?? "text"}
+                  value={data[f.key]}
+                  onChange={(e) => update(f.key, e.target.value)}
+                  placeholder={f.placeholder}
+                  maxLength={f.key === "address" ? 300 : 100}
+                  className="w-full rounded-2xl border-4 border-fun-ink/10 bg-fun-cream px-4 py-3 font-display text-base text-fun-ink outline-none transition-colors placeholder:text-fun-ink/40 focus:border-fun-purple"
+                />
+                {errors[f.key] && (
+                  <p className="mt-1.5 font-display text-sm font-semibold text-fun-red">{errors[f.key]}</p>
+                )}
+              </div>
+            ))}
+            <button
+              type="submit"
+              disabled={submitting}
+              className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-fun-red px-8 py-4 font-display text-lg font-bold text-white shadow-[0_8px_0_rgb(0_0_0_/_0.2)] transition-all hover:-translate-y-1 hover:shadow-[0_12px_0_rgb(0_0_0_/_0.22)] active:translate-y-1 disabled:opacity-60 md:text-xl"
+            >
+              {submitting ? "Изпращане..." : `${order.submit} 🚀`}
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+}

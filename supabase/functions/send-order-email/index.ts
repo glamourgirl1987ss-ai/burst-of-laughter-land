@@ -23,7 +23,10 @@ function escapeHtml(value: string) {
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders });
+    return new Response(null, {
+      status: 204,
+      headers: corsHeaders,
+    });
   }
 
   try {
@@ -32,7 +35,10 @@ Deno.serve(async (req) => {
     if (!name || !phone || !address) {
       return new Response(JSON.stringify({ error: "Missing fields" }), {
         status: 400,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "application/json; charset=utf-8",
+        },
       });
     }
 
@@ -43,6 +49,10 @@ Deno.serve(async (req) => {
       throw new Error("Missing SMTP credentials");
     }
 
+    const safeName = escapeHtml(name.trim());
+    const safePhone = escapeHtml(phone.trim());
+    const safeAddress = escapeHtml(address.trim());
+
     const transporter = nodemailer.createTransport({
       host: "eu1001.jethosting.com",
       port: 25,
@@ -51,46 +61,54 @@ Deno.serve(async (req) => {
         user: username,
         pass: password,
       },
+      tls: {
+        rejectUnauthorized: false,
+      },
     });
 
-    const safeName = escapeHtml(name);
-    const safePhone = escapeHtml(phone);
-    const safeAddress = escapeHtml(address);
-
-    const subject = `Нова поръчка от ${name}`;
-
-    const text = `Нова поръчка - ЩуроБъркотия
-
-Име: ${name}
-Телефон: ${phone}
-Адрес: ${address}`;
-
-    const html = `
-<!DOCTYPE html>
+    const html = `<!DOCTYPE html>
 <html lang="bg">
-  <head>
-    <meta charset="UTF-8" />
-  </head>
-  <body style="font-family: Arial, sans-serif; color: #222; line-height: 1.5;">
-    <h2>Нова поръчка - ЩуроБъркотия</h2>
-    <p><strong>Име:</strong> ${safeName}</p>
-    <p><strong>Телефон:</strong> ${safePhone}</p>
-    <p><strong>Адрес:</strong> ${safeAddress}</p>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <title>Нова поръчка</title>
+</head>
+<body style="margin:0;padding:20px;font-family:Arial,sans-serif;color:#222;background:#ffffff;">
+  <h2 style="margin:0 0 16px;">Нова поръчка - ЩуроБъркотия</h2>
+
+  <p><strong>Име:</strong> ${safeName}</p>
+  <p><strong>Телефон:</strong> ${safePhone}</p>
+  <p><strong>Адрес:</strong> ${safeAddress}</p>
+</body>
 </html>`;
 
     await transporter.sendMail({
       from: `"ЩуроБъркотия" <${username}>`,
       to: username,
+
+      // IMPORTANT:
+      // Test also with Gmail:
+      // to: "yourgmail@gmail.com",
+
       replyTo: username,
-      subject,
-      text,
+      subject: "Нова поръчка - ЩуроБъркотия",
+
+      // HTML only — no text version
       html,
+
+      encoding: "utf-8",
+
+      headers: {
+        "Content-Type": "text/html; charset=UTF-8",
+        "Content-Transfer-Encoding": "quoted-printable",
+      },
     });
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      headers: {
+        ...corsHeaders,
+        "Content-Type": "application/json; charset=utf-8",
+      },
     });
   } catch (err) {
     console.error("send-order-email error:", err);
@@ -101,7 +119,10 @@ Deno.serve(async (req) => {
       }),
       {
         status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "application/json; charset=utf-8",
+        },
       },
     );
   }

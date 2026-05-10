@@ -45,7 +45,7 @@ Deno.serve(async (req) => {
 
     const transporter = nodemailer.createTransport({
       host: "eu1001.jethosting.com",
-      port: 465,
+      port: 25,
       secure: true,
       auth: {
         user: username,

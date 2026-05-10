@@ -21,9 +21,21 @@ function escapeHtml(value: string) {
     .replaceAll("'", "&#039;");
 }
 
+function toHtmlEntities(value: string) {
+  return [...value]
+    .map((char) => {
+      const code = char.codePointAt(0)!;
+      return code > 127 ? `&#${code};` : char;
+    })
+    .join("");
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders });
+    return new Response(null, {
+      status: 204,
+      headers: corsHeaders,
+    });
   }
 
   let client: SMTPClient | null = null;
@@ -34,7 +46,10 @@ Deno.serve(async (req) => {
     if (!name || !phone || !address) {
       return new Response(JSON.stringify({ error: "Missing fields" }), {
         status: 400,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "application/json; charset=utf-8",
+        },
       });
     }
 
@@ -57,26 +72,21 @@ Deno.serve(async (req) => {
       },
     });
 
-    const safeName = escapeHtml(name);
-    const safePhone = escapeHtml(phone);
-    const safeAddress = escapeHtml(address);
-
-    const subject = `Нова поръчка от ${name}`;
-
-    const text = ["Нова поръчка - ЩуроБъркотия", "", `Име: ${name}`, `Телефон: ${phone}`, `Адрес: ${address}`].join(
-      "\n",
-    );
+    const safeName = toHtmlEntities(escapeHtml(name.trim()));
+    const safePhone = toHtmlEntities(escapeHtml(phone.trim()));
+    const safeAddress = toHtmlEntities(escapeHtml(address.trim()));
 
     const html = `<!DOCTYPE html>
-<html lang="bg">
+<html>
 <head>
-  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body style="font-family: Arial, sans-serif; color: #222; line-height: 1.5;">
-  <h2>Нова поръчка - ЩуроБъркотия</h2>
-  <p><strong>Име:</strong> ${safeName}</p>
-  <p><strong>Телефон:</strong> ${safePhone}</p>
-  <p><strong>Адрес:</strong> ${safeAddress}</p>
+  <h2>&#1053;&#1086;&#1074;&#1072; &#1087;&#1086;&#1088;&#1098;&#1095;&#1082;&#1072; - &#1065;&#1091;&#1088;&#1086;&#1041;&#1098;&#1088;&#1082;&#1086;&#1090;&#1080;&#1103;</h2>
+
+  <p><strong>&#1048;&#1084;&#1077;:</strong> ${safeName}</p>
+  <p><strong>&#1058;&#1077;&#1083;&#1077;&#1092;&#1086;&#1085;:</strong> ${safePhone}</p>
+  <p><strong>&#1040;&#1076;&#1088;&#1077;&#1089;:</strong> ${safeAddress}</p>
 </body>
 </html>`;
 
@@ -84,14 +94,20 @@ Deno.serve(async (req) => {
       from: username,
       to: username,
       replyTo: username,
-      subject,
-      content: text,
+
+      // IMPORTANT: keep subject in Latin letters to avoid header encoding bugs
+      subject: "Nova porachka - ShturoBarkotia",
+
+      // HTML only
       html,
     });
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      headers: {
+        ...corsHeaders,
+        "Content-Type": "application/json; charset=utf-8",
+      },
     });
   } catch (err) {
     console.error("send-order-email error:", err);
@@ -102,7 +118,10 @@ Deno.serve(async (req) => {
       }),
       {
         status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "application/json; charset=utf-8",
+        },
       },
     );
   } finally {

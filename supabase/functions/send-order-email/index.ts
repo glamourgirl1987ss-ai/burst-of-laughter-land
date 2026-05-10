@@ -29,9 +29,10 @@ Deno.serve(async (req) => {
   try {
     const { name, phone, address } = (await req.json()) as OrderPayload;
 
-    const username = Deno.env.get("SMTP_USERNAME");
-    const password = Deno.env.get("SMTP_PASSWORD");
-
+    //const username = Deno.env.get("SMTP_USERNAME");
+    //const password = Deno.env.get("SMTP_PASSWORD");
+    const username = "kristiqnenchevv@gmail.com";
+    const password = "wqzp sxau zhtp pcws";
     if (!username || !password) {
       throw new Error("Missing SMTP credentials");
     }

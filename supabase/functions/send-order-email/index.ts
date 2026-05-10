@@ -85,7 +85,7 @@ Deno.serve(async (req) => {
 
     await transporter.sendMail({
       from: `"ЩуроБъркотия" <${username}>`,
-      to: username,
+      to: "business.advanc3d@gmail.com",
 
       // IMPORTANT:
       // Test also with Gmail:

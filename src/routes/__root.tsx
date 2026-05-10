@@ -81,7 +81,7 @@ export const Route = createRootRoute({
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Lilita+One&family=Fredoka:wght@500;600;700&family=Baloo+2:wght@500;600;700;800&display=swap",
       },
-      { rel: "icon", href: "/public/favicon.ico" },
+      { rel: "icon", href: "/public/src/favicon.ico" },
     ],
     scripts: [{ src: "https://cdn.forminit.com/sdk.js", async: true }],
   }),

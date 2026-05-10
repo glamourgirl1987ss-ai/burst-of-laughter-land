@@ -17,6 +17,12 @@ const orderSchema = z.object({
     .min(6, { message: "Въведете валиден телефонен номер" })
     .max(30, { message: "Телефонът е твърде дълъг" })
     .regex(/^[+0-9\s\-()]+$/, { message: "Невалиден телефонен номер" }),
+  email: z
+    .string()
+    .trim()
+    .min(4, { message: "Въведете валиден имейл" })
+    .max(40, { message: "Имейл адреса е твърде дълъг" })
+    .regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, { message: "Невалиден имейл адрес" }),
   address: z
     .string()
     .trim()
@@ -29,7 +35,7 @@ type Errors = Partial<Record<keyof FormData, string>>;
 
 export function OrderForm() {
   const { order } = siteContent;
-  const [data, setData] = useState<FormData>({ name: "", phone: "", address: "" });
+  const [data, setData] = useState<FormData>({ name: "", phone: "", email: "", address: "" });
   const [errors, setErrors] = useState<Errors>({});
   const [submitting, setSubmitting] = useState(false);
 
@@ -70,6 +76,7 @@ export function OrderForm() {
   const fields: Array<{ key: keyof FormData; label: string; placeholder: string; type?: string }> = [
     { key: "name", label: "Име", placeholder: "Иван Иванов" },
     { key: "phone", label: "Телефон", placeholder: "+359 88 123 4567", type: "tel" },
+    { key: "email", label: "Имейл", placeholder: "test@gmail.com", type: "email" },
     { key: "address", label: "Адрес", placeholder: "ул. Веселие 1, София" },
   ];
 

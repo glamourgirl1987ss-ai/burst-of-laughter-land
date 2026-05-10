@@ -29,17 +29,17 @@ Deno.serve(async (req) => {
   try {
     const { name, phone, address } = (await req.json()) as OrderPayload;
 
-    //const username = Deno.env.get("SMTP_USERNAME");
-    //const password = Deno.env.get("SMTP_PASSWORD");
-    const username = "kristiqnenchevv@gmail.com";
-    const password = "wqzp sxau zhtp pcws";
+    const username = Deno.env.get("SMTP_USERNAME");
+    const password = Deno.env.get("SMTP_PASSWORD");
+    // const username = "kristiqnenchevv@gmail.com";
+    // const password = "wqzp sxau zhtp pcws";
     if (!username || !password) {
       throw new Error("Missing SMTP credentials");
     }
 
     const transporter = nodemailer.createTransport({
-      //host: "eu1001.jethosting.com",
-      host: "smtp.gmail.com",
+      host: "eu1001.jethosting.com",
+      // host: "smtp.gmail.com",
       port: 465,
       secure: true,
       auth: {
@@ -58,9 +58,9 @@ Deno.serve(async (req) => {
     `;
 
     await transporter.sendMail({
-      from: "kristiqnenchevv@gmail.com",
+      from: username,
       to: "kristiqnenchevv@gmail.com",
-      replyTo: "kristiqnenchevv@gmail.com",
+      replyTo: username,
       subject: "Nova porachka - ShturoBarkotia",
       html,
     });

@@ -20,9 +20,8 @@ const orderSchema = z.object({
   email: z
     .string()
     .trim()
-    .min(4, { message: "Въведете валиден имейл" })
-    .max(40, { message: "Имейл адреса е твърде дълъг" }),
-    .regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, { message: "Невалиден имейл адрес" }),
+    .email({ message: "Невалиден имейл адрес" })
+    .max(100, { message: "Имейл адресът е твърде дълъг" }),
   address: z
     .string()
     .trim()

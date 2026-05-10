@@ -42,8 +42,8 @@ Deno.serve(async (req) => {
       });
     }
 
-    //const username = Deno.env.get("SMTP_USERNAME");
-    //const password = Deno.env.get("SMTP_PASSWORD");
+    const username = Deno.env.get("SMTP_USERNAME");
+    const password = Deno.env.get("SMTP_PASSWORD");
 
     if (!username || !password) {
       throw new Error("Missing SMTP credentials");
@@ -54,14 +54,12 @@ Deno.serve(async (req) => {
     const safeAddress = escapeHtml(address.trim());
 
     const transporter = nodemailer.createTransport({
-      //host: "eu1001.jethosting.com",
-      //port: 25,
-      host: "smtp.gmail.com",
-      port: 587,
+      host: "eu1001.jethosting.com",
+      port: 465,
       secure: true,
       auth: {
-        user: "business.advanc3d@gmail.com",
-        pass: "cgugpqljhcxtdcjm",
+        user: username,
+        pass: password,
       },
       tls: {
         rejectUnauthorized: false,
@@ -85,13 +83,9 @@ Deno.serve(async (req) => {
 
     await transporter.sendMail({
       from: `"ЩуроБъркотия" <${username}>`,
-      to: "business.advanc3d@gmail.com",
+      to: username,
 
-      // IMPORTANT:
-      // Test also with Gmail:
-      // to: "yourgmail@gmail.com",
-
-      replyTo: "business.advanc3d@gmail.com",
+      replyTo: username,
       subject: "Нова поръчка - ЩуроБъркотия",
 
       // HTML only — no text version

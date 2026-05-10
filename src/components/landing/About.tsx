@@ -96,9 +96,9 @@ export function About() {
 
                       {/* TEXT BUBBLE */}
                       <div className="mt-6 rounded-[28px] border-4 border-fun-ink bg-white/95 px-5 py-4 shadow-[5px_5px_0_rgb(0_0_0_/_0.25)]">
-                        <h3 className="font-display text-3xl font-bold text-fun-ink md:text-4xl">{card.title}</h3>
+                        <h3 className="font-display text-3xl font-bold text-white md:text-4xl">{card.title}</h3>
 
-                        <p className="mt-2 font-display text-xl font-semibold text-fun-ink/80">{card.subtitle}</p>
+                        <p className="mt-2 font-display text-xl font-semibold text-white/80">{card.subtitle}</p>
                       </div>
                     </div>
                   )}

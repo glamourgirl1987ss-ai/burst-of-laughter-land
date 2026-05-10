@@ -12,10 +12,21 @@ interface OrderPayload {
   address: string;
 }
 
+function escapeHtml(value: string) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
+
+  let client: SMTPClient | null = null;
 
   try {
     const { name, phone, address } = (await req.json()) as OrderPayload;
@@ -27,28 +38,47 @@ Deno.serve(async (req) => {
       });
     }
 
-    const username = Deno.env.get("SMTP_USERNAME")!;
-    const password = Deno.env.get("SMTP_PASSWORD")!;
+    const username = Deno.env.get("SMTP_USERNAME");
+    const password = Deno.env.get("SMTP_PASSWORD");
 
-    const client = new SMTPClient({
+    if (!username || !password) {
+      throw new Error("Missing SMTP credentials");
+    }
+
+    client = new SMTPClient({
       connection: {
         hostname: "eu1001.jethosting.com",
         port: 465,
         tls: true,
-        auth: { username, password },
+        auth: {
+          username,
+          password,
+        },
       },
     });
 
+    const safeName = escapeHtml(name);
+    const safePhone = escapeHtml(phone);
+    const safeAddress = escapeHtml(address);
+
     const subject = `Нова поръчка от ${name}`;
-    const text = `Име: ${name}\nТелефон: ${phone}\nАдрес: ${address}`;
+
+    const text = ["Нова поръчка - ЩуроБъркотия", "", `Име: ${name}`, `Телефон: ${phone}`, `Адрес: ${address}`].join(
+      "\n",
+    );
+
     const html = `<!DOCTYPE html>
-<html lang="bg"><head><meta charset="UTF-8"></head>
-<body style="font-family:Arial,sans-serif;color:#222;">
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+</head>
+<body style="font-family: Arial, sans-serif; color: #222; line-height: 1.5;">
   <h2>Нова поръчка - ЩуроБъркотия</h2>
-  <p><strong>Име:</strong> ${name}</p>
-  <p><strong>Телефон:</strong> ${phone}</p>
-  <p><strong>Адрес:</strong> ${address}</p>
-</body></html>`;
+  <p><strong>Име:</strong> ${safeName}</p>
+  <p><strong>Телефон:</strong> ${safePhone}</p>
+  <p><strong>Адрес:</strong> ${safeAddress}</p>
+</body>
+</html>`;
 
     await client.send({
       from: username,
@@ -57,33 +87,27 @@ Deno.serve(async (req) => {
       subject,
       content: text,
       html,
-      mimeContent: [
-        {
-          mimeType: 'text/plain; charset="utf-8"',
-          content: text,
-          transferEncoding: "8bit",
-        },
-        {
-          mimeType: 'text/html; charset="utf-8"',
-          content: html,
-          transferEncoding: "8bit",
-        },
-      ],
-      headers: {
-        "MIME-Version": "1.0",
-      },
     });
 
-    await client.close();
-
     return new Response(JSON.stringify({ success: true }), {
+      status: 200,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (err) {
     console.error("send-order-email error:", err);
+
     return new Response(
-      JSON.stringify({ error: err instanceof Error ? err.message : "Unknown error" }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+      JSON.stringify({
+        error: err instanceof Error ? err.message : "Unknown error",
+      }),
+      {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      },
     );
+  } finally {
+    if (client) {
+      await client.close();
+    }
   }
 });

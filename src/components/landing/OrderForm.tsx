@@ -94,18 +94,13 @@ export function OrderForm() {
             >
               {order.heading}
             </h2>
-            <p className="mt-3 font-display text-base font-semibold text-fun-ink/70 md:text-lg">
-              {order.subheading}
-            </p>
+            <p className="mt-3 font-display text-base font-semibold text-fun-ink/70 md:text-lg">{order.subheading}</p>
           </div>
 
           <form onSubmit={onSubmit} className="mt-8 space-y-5" noValidate>
             {fields.map((f) => (
               <div key={f.key}>
-                <label
-                  htmlFor={f.key}
-                  className="mb-1.5 block font-display text-sm font-bold text-fun-ink"
-                >
+                <label htmlFor={f.key} className="mb-1.5 block font-display text-sm font-bold text-fun-ink">
                   {f.label}
                 </label>
                 <input
@@ -118,9 +113,7 @@ export function OrderForm() {
                   className="w-full rounded-2xl border-4 border-fun-ink/10 bg-fun-cream px-4 py-3 font-display text-base text-fun-ink outline-none transition-colors placeholder:text-fun-ink/40 focus:border-fun-purple"
                 />
                 {errors[f.key] && (
-                  <p className="mt-1.5 font-display text-sm font-semibold text-fun-red">
-                    {errors[f.key]}
-                  </p>
+                  <p className="mt-1.5 font-display text-sm font-semibold text-fun-red">{errors[f.key]}</p>
                 )}
               </div>
             ))}

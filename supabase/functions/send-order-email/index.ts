@@ -1,4 +1,4 @@
-import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
+import nodemailer from "npm:nodemailer@6.9.13";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -24,10 +24,8 @@ function escapeHtml(value: string) {
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders });
+    return new Response(null, { status: 204, headers: corsHeaders });
   }
-
-  let client: SMTPClient | null = null;
 
   try {
     const { name, phone, email, address } = (await req.json()) as OrderPayload;
@@ -35,7 +33,10 @@ Deno.serve(async (req) => {
     if (!name || !phone || !email || !address) {
       return new Response(JSON.stringify({ error: "Missing fields" }), {
         status: 400,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "application/json; charset=utf-8",
+        },
       });
     }
 
@@ -46,60 +47,49 @@ Deno.serve(async (req) => {
       throw new Error("Missing SMTP credentials");
     }
 
-    client = new SMTPClient({
-      connection: {
-        hostname: "eu1001.jethosting.com",
-        port: 465,
-        tls: true,
-        auth: {
-          username,
-          password,
-        },
+    const transporter = nodemailer.createTransport({
+      host: "eu1001.jethosting.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: username,
+        pass: password,
       },
     });
 
-    const safeName = escapeHtml(name);
-    const safePhone = escapeHtml(phone);
-    const safeEmail = escapeHtml(email);
-    const safeAddress = escapeHtml(address);
+    const safeName = escapeHtml(name.trim());
+    const safePhone = escapeHtml(phone.trim());
+    const safeEmail = escapeHtml(email.trim());
+    const safeAddress = escapeHtml(address.trim());
 
-    const subject = `Нова поръчка от ${name}`;
-
-    const text = [
-      "Нова поръчка - ЩуроБъркотия",
-      "",
-      `Име: ${name}`,
-      `Телефон: ${phone}`,
-      `Имейл: ${email}`,
-      `Адрес: ${address}`,
-    ].join("\n");
-
-    const html = `<!DOCTYPE html>
-<html lang="bg">
-<head>
-  <meta charset="UTF-8" />
-</head>
-<body style="font-family: Arial, sans-serif; color: #222; line-height: 1.5;">
-  <h2>Нова поръчка - ЩуроБъркотия</h2>
-  <p><strong>Име:</strong> ${safeName}</p>
-  <p><strong>Телефон:</strong> ${safePhone}</p>
-  <p><strong>Имейл:</strong> ${safeEmail}</p>
-  <p><strong>Адрес:</strong> ${safeAddress}</p>
-</body>
-</html>`;
-
-    await client.send({
-      from: username,
+    await transporter.sendMail({
+      from: `"ShturoBarkotia" <${username}>`,
       to: "glamourgirl1987ss@gmail.com",
-      replyTo: username,
-      subject,
-      content: text,
-      html,
+      replyTo: email,
+      subject: "Nova porachka - ShturoBarkotia",
+      text: `Nova porachka - ShturoBarkotia
+
+Ime: ${name}
+Telefon: ${phone}
+Email: ${email}
+Adres: ${address}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; color: #222; line-height: 1.5;">
+          <h2>Nova porachka - ShturoBarkotia</h2>
+          <p><strong>Ime:</strong> ${safeName}</p>
+          <p><strong>Telefon:</strong> ${safePhone}</p>
+          <p><strong>Email:</strong> ${safeEmail}</p>
+          <p><strong>Adres:</strong> ${safeAddress}</p>
+        </div>
+      `,
     });
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      headers: {
+        ...corsHeaders,
+        "Content-Type": "application/json; charset=utf-8",
+      },
     });
   } catch (err) {
     console.error("send-order-email error:", err);
@@ -110,12 +100,11 @@ Deno.serve(async (req) => {
       }),
       {
         status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "application/json; charset=utf-8",
+        },
       },
     );
-  } finally {
-    if (client) {
-      await client.close();
-    }
   }
 });

@@ -56,9 +56,9 @@ Deno.serve(async (req) => {
     `;
 
     await transporter.sendMail({
-      from: username,
-      to: username,
-      replyTo: username,
+      from: "kristiqnenchevv@gmail.com",
+      to: "kristiqnenchevv@gmail.com",
+      replyTo: "kristiqnenchevv@gmail.com",
       subject: "Nova porachka - ShturoBarkotia",
       html,
     });

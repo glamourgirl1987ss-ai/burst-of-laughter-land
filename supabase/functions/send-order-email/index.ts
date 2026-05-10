@@ -1,4 +1,4 @@
-import nodemailer from "npm:nodemailer@6.9.13";
+import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -9,6 +9,7 @@ const corsHeaders = {
 interface OrderPayload {
   name: string;
   phone: string;
+  email: string;
   address: string;
 }
 
@@ -23,62 +24,98 @@ function escapeHtml(value: string) {
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
-    return new Response(null, { status: 204, headers: corsHeaders });
+    return new Response(null, { headers: corsHeaders });
   }
 
+  let client: SMTPClient | null = null;
+
   try {
-    const { name, phone, address } = (await req.json()) as OrderPayload;
+    const { name, phone, email, address } = (await req.json()) as OrderPayload;
+
+    if (!name || !phone || !email || !address) {
+      return new Response(JSON.stringify({ error: "Missing fields" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
 
     const username = Deno.env.get("SMTP_USERNAME");
     const password = Deno.env.get("SMTP_PASSWORD");
-    // const username = "kristiqnenchevv@gmail.com";
-    // const password = "wqzp sxau zhtp pcws";
+
     if (!username || !password) {
       throw new Error("Missing SMTP credentials");
     }
 
-    const transporter = nodemailer.createTransport({
-      host: "eu1001.jethosting.com",
-      // host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
-      auth: {
-        user: username,
-        pass: password,
+    client = new SMTPClient({
+      connection: {
+        hostname: "eu1001.jethosting.com",
+        port: 465,
+        tls: true,
+        auth: {
+          username,
+          password,
+        },
       },
     });
 
-    const html = `
-      <div style="font-family: Arial, sans-serif; font-size: 16px;">
-        <h2>Nova porachka - ShturoBarkotia</h2>
-        <p><strong>Ime:</strong> ${escapeHtml(name)}</p>
-        <p><strong>Telefon:</strong> ${escapeHtml(phone)}</p>
-        <p><strong>Adres:</strong> ${escapeHtml(address)}</p>
-      </div>
-    `;
+    const safeName = escapeHtml(name);
+    const safePhone = escapeHtml(phone);
+    const safeEmail = escapeHtml(email);
+    const safeAddress = escapeHtml(address);
 
-    await transporter.sendMail({
+    const subject = `Нова поръчка от ${name}`;
+
+    const text = [
+      "Нова поръчка - ЩуроБъркотия",
+      "",
+      `Име: ${name}`,
+      `Телефон: ${phone}`,
+      `Имейл: ${email}`,
+      `Адрес: ${address}`,
+    ].join("\n");
+
+    const html = `<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+</head>
+<body style="font-family: Arial, sans-serif; color: #222; line-height: 1.5;">
+  <h2>Нова поръчка - ЩуроБъркотия</h2>
+  <p><strong>Име:</strong> ${safeName}</p>
+  <p><strong>Телефон:</strong> ${safePhone}</p>
+  <p><strong>Имейл:</strong> ${safeEmail}</p>
+  <p><strong>Адрес:</strong> ${safeAddress}</p>
+</body>
+</html>`;
+
+    await client.send({
       from: username,
-      to: "kristiqnenchevv@gmail.com",
+      to: "glamourgirl1987ss@gmail.com",
       replyTo: username,
-      subject: "Nova porachka - ShturoBarkotia",
+      subject,
+      content: text,
       html,
     });
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
-      headers: {
-        ...corsHeaders,
-        "Content-Type": "application/json; charset=utf-8",
-      },
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (err) {
-    return new Response(JSON.stringify({ error: String(err) }), {
-      status: 500,
-      headers: {
-        ...corsHeaders,
-        "Content-Type": "application/json; charset=utf-8",
+    console.error("send-order-email error:", err);
+
+    return new Response(
+      JSON.stringify({
+        error: err instanceof Error ? err.message : "Unknown error",
+      }),
+      {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
       },
-    });
+    );
+  } finally {
+    if (client) {
+      await client.close();
+    }
   }
 });

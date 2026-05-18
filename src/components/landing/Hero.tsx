@@ -16,10 +16,15 @@ export function Hero() {
       }}
     >
       <div className="relative z-10 mx-auto max-w-4xl text-center pt-8 md:pt-12">
-        <h1 className="sr-only">{hero.title}</h1>
+        <h1 className="sr-only">
+          ЩуроБъркотия – българската картова игра, която ще ви взриви от смях
+        </h1>
         <img
           src={titleLogo}
-          alt={hero.title}
+          alt="ЩуроБъркотия – заглавно лого на картовата игра"
+          width={1024}
+          height={512}
+          fetchPriority="high"
           className="mx-auto w-full max-w-4xl drop-shadow-[0_8px_0_rgb(0_0_0_/_0.15)] animate-title-float"
         />
         <div className="-mt-12 md:-mt-20 inline-block -rotate-2 rounded-2xl border-4 border-fun-ink bg-fun-yellow px-8 py-4 shadow-[6px_6px_0_rgb(0_0_0_/_0.85)] md:px-12 md:py-6">

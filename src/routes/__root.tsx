@@ -5,6 +5,17 @@ import appCss from "../styles.css?url";
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      <title>Страницата не е намерена (404) – ЩуроБъркотия</title>
+      <meta
+        name="description"
+        content="Упс! Тази страница на ЩуроБъркотия не съществува. Върни се към началната страница, за да поръчаш играта."
+      />
+      <meta property="og:title" content="Страницата не е намерена (404) – ЩуроБъркотия" />
+      <meta
+        property="og:description"
+        content="Упс! Тази страница на ЩуроБъркотия не съществува. Върни се към началната страница, за да поръчаш играта."
+      />
+      <meta name="robots" content="noindex" />
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-bold text-foreground">404</h1>
         <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
@@ -30,16 +41,8 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "ЩуроБъркотия – играта, която ще ви взриви от смях" },
-      {
-        name: "description",
-        content: "ЩуроБъркотия – забавната картова игра за деца и възрастни. Играй! Смей се! Познай! Поръчай онлайн.",
-      },
       { name: "author", content: "ЩуроБъркотия" },
       { property: "og:title", content: "ЩуроБъркотия – играта, която ще ви взриви от смях" },
-      {
-        property: "og:description",
-        content: "Комбинирай карти, влизай в щури роли и създавай най-забавните ситуации!",
-      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },

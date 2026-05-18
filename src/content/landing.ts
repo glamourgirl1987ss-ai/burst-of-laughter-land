@@ -71,9 +71,9 @@ export const siteContent = {
     heading: "Виж как се забавляват децата",
     // Replace these placeholder URLs with real photos later.
     images: [
-      { src: gallery1, alt: "Снимка 1" },
-      { src: gallery2, alt: "Снимка 2" },
-      { src: gallery3, alt: "Снимка 3" },
+      { src: gallery1, alt: "Деца се смеят и играят ЩуроБъркотия на масата" },
+      { src: gallery2, alt: "Семейство комбинира карти от играта ЩуроБъркотия" },
+      { src: gallery3, alt: "Приятели изиграват щура ситуация с карти от ЩуроБъркотия" },
     ],
   },
   product: {

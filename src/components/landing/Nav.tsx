@@ -8,7 +8,7 @@ export function Nav() {
         <a href="#top" className="flex items-center">
           <img
             src={navLogo}
-            alt="ЩуроБъркотия"
+            alt="Лого на ЩуроБъркотия – картова игра за смях"
             className="h-20 w-auto md:h-28"
           />
         </a>

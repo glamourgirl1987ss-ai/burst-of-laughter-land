@@ -25,7 +25,7 @@ export function Product() {
           >
             <img
               src={boxCover}
-              alt="ЩуроБъркотия"
+              alt="Кутия на картовата игра ЩуроБъркотия"
               className="h-full w-full object-cover"
             />
             <span className="absolute -right-4 -top-4 rotate-12 rounded-full bg-fun-yellow px-3 py-1 font-display text-sm font-bold text-fun-ink shadow-md ring-4 ring-white">

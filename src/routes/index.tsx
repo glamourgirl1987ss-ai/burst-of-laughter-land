@@ -10,6 +10,11 @@ import { OrderForm } from "@/components/landing/OrderForm";
 import { Footer } from "@/components/landing/Footer";
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    links: [
+      { rel: "canonical", href: "https://shturobarkotia.com/" },
+    ],
+  }),
   component: Index,
 });
 

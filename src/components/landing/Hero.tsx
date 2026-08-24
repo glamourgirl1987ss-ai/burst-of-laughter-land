@@ -7,7 +7,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative isolate flex min-h-[92vh] items-center justify-center overflow-hidden px-4 py-16 md:py-24"
+      className="relative flex items-center justify-center px-2 py-6"
       style={{
         backgroundImage: `url(${emojiPattern})`,
         backgroundSize: "contain",
@@ -15,7 +15,7 @@ export function Hero() {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="relative z-10 mx-auto max-w-4xl text-center pt-8 md:pt-12">
+      <div className="relative mx-auto max-w-4xl text-center">
         <h1 className="sr-only">
           ЩуроБъркотия – българската картова игра, която ще ви взриви от смях
         </h1>
@@ -25,7 +25,7 @@ export function Hero() {
           width={1024}
           height={512}
           fetchPriority="high"
-          className="mx-auto w-full max-w-4xl drop-shadow-[0_8px_0_rgb(0_0_0_/_0.15)] animate-title-float"
+          className="relative z-[60] -mt-20 mx-auto w-full max-w-4xl drop-shadow-[0_8px_0_rgb(0_0_0_/_0.15)] animate-title-float md:mt-0"
         />
         <div className="-mt-12 md:-mt-20 inline-block -rotate-2 rounded-2xl border-4 border-fun-ink bg-fun-yellow px-8 py-4 shadow-[6px_6px_0_rgb(0_0_0_/_0.85)] md:px-12 md:py-6">
           <p className="font-display text-2xl font-extrabold text-fun-ink md:text-5xl">

@@ -34,6 +34,18 @@ jobs:
               echo '::error title=Production build failed::Category: OXC native package'
             elif grep -Eqi 'workerd|@cloudflare/workerd-' build.log; then
               echo '::error title=Production build failed::Category: Cloudflare Workerd package'
+            elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*(@tanstack|tanstack)' build.log; then
+              echo '::error title=Production build failed::Category: TanStack package import'
+            elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*(@lovable|lovable)' build.log; then
+              echo '::error title=Production build failed::Category: Lovable package import'
+            elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*(nitro|unenv|h3|rolldown)' build.log; then
+              echo '::error title=Production build failed::Category: Nitro dependency import'
+            elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*(vite|rollup|esbuild)' build.log; then
+              echo '::error title=Production build failed::Category: Vite dependency import'
+            elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*(react|supabase|sonner|zod)' build.log; then
+              echo '::error title=Production build failed::Category: application dependency import'
+            elif grep -Eqi 'Could not resolve.*(src/|@/|\./|\.\./)' build.log; then
+              echo '::error title=Production build failed::Category: local source import'
             elif grep -Eqi 'Cannot find module|Cannot find package|MODULE_NOT_FOUND' build.log; then
               echo '::error title=Production build failed::Category: project or other package import'
             elif grep -Eqi 'ENOENT|no such file or directory' build.log; then

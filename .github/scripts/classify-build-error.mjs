@@ -24,6 +24,16 @@ const index = allowedPackages.indexOf(packageName);
 
 if (index >= 0) {
   console.log(`::error title=Production build failed::Category: dependency lock index ${index}`);
+} else if (specifier.startsWith("./") || specifier.startsWith("../")) {
+  console.log("::error title=Production build failed::Category: relative source import");
+} else if (specifier.startsWith("/") || specifier.startsWith("file:")) {
+  console.log("::error title=Production build failed::Category: absolute filesystem import");
+} else if (specifier.startsWith("#")) {
+  console.log("::error title=Production build failed::Category: package-internal import alias");
+} else if (specifier.startsWith("node:")) {
+  console.log("::error title=Production build failed::Category: Node built-in import");
+} else if (specifier.startsWith("@")) {
+  console.log("::error title=Production build failed::Category: scoped package absent from dependency lock");
 } else {
-  console.log("::error title=Production build failed::Category: identifier absent from dependency lock");
+  console.log("::error title=Production build failed::Category: bare package absent from dependency lock");
 }

@@ -75,7 +75,7 @@ jobs:
             elif grep -Eqi 'Could not resolve.*(src/|@/|\./|\.\./)' build.log; then
               echo '::error title=Production build failed::Category: local source import'
             elif grep -Eqi 'Cannot find module|Cannot find package|MODULE_NOT_FOUND' build.log; then
-              echo '::error title=Production build failed::Category: project or other package import'
+              node .github/scripts/classify-build-error.mjs build.log
             elif grep -Eqi 'ENOENT|no such file or directory' build.log; then
               echo '::error title=Production build failed::Category: missing file'
             elif grep -Eqi 'prerender' build.log; then

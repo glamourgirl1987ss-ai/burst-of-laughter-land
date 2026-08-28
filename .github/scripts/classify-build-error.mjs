@@ -47,6 +47,9 @@ if (index >= 0) {
                 if (trackedIndex >= 0) return `tracked repository file index ${trackedIndex}`;
                 const depth = relative.split("/").length;
                 const extension = relative.includes(".") ? relative.split(".").at(-1) : "none";
+                const topLevel = relative.split("/")[0];
+                const knownBuildRoots = new Set(["dist", "build", "public", "server", "client", "assets", ".vite", ".nitro"]);
+                if (knownBuildRoots.has(topLevel)) return `untracked ${topLevel} build path depth ${depth} extension ${extension}`;
                 return `untracked repository path depth ${depth} extension ${extension}`;
               })()
             : normalized.includes("/runner/_temp/") || normalized.includes("/tmp/")

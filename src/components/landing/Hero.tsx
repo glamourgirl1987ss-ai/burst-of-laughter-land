@@ -32,7 +32,10 @@ export function Hero() {
             🤪 {hero.tagline} 💥
           </p>
         </div>
-        <div className="relative z-[70] mt-6 inline-block rotate-1 rounded-full border-4 border-fun-ink bg-fun-pink px-6 py-2 shadow-[5px_5px_0_rgb(0_0_0_/_0.85)] md:mt-8 md:px-8 md:py-3">
+        <div
+          className="relative z-[70] mt-6 inline-block rotate-1 animate-float rounded-full border-4 border-fun-ink bg-fun-pink px-6 py-2 shadow-[5px_5px_0_rgb(0_0_0_/_0.85)] md:mt-8 md:px-8 md:py-3"
+          style={{ ["--r" as string]: "1deg" }}
+        >
           <span className="sr-only">Цена:</span>
           <span className="font-display text-4xl font-extrabold tracking-tight text-fun-ink md:text-5xl">
             {hero.price}

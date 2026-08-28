@@ -100,7 +100,10 @@ export function OrderForm() {
             >
               {order.heading}
             </h2>
-            <div className="relative z-10 mt-4 inline-block -rotate-2 rounded-full border-4 border-fun-ink bg-fun-yellow px-6 py-2 shadow-[5px_5px_0_rgb(0_0_0_/_0.85)] md:px-8 md:py-3">
+            <div
+              className="relative z-10 mt-4 inline-block -rotate-2 animate-float-slow rounded-full border-4 border-fun-ink bg-fun-yellow px-6 py-2 shadow-[5px_5px_0_rgb(0_0_0_/_0.85)] md:px-8 md:py-3"
+              style={{ ["--r" as string]: "-2deg" }}
+            >
               <span className="sr-only">Цена:</span>
               <span className="font-display text-4xl font-extrabold tracking-tight text-fun-ink md:text-5xl">
                 {order.price}

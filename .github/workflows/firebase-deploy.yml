@@ -46,6 +46,12 @@ jobs:
               echo '::error title=Production build failed::Category: TanStack devtools import'
             elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*@tanstack/(react-query|query-core)' build.log; then
               echo '::error title=Production build failed::Category: TanStack query import'
+            elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*@tanstack/(start-plugin-core|start-fn-stubs)' build.log; then
+              echo '::error title=Production build failed::Category: TanStack Start plugin-core import'
+            elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*@tanstack/(start-client-core|react-start-client|start-storage-context)' build.log; then
+              echo '::error title=Production build failed::Category: TanStack Start client or storage import'
+            elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*@tanstack/(history|store|react-store|router-utils|virtual-file-routes)' build.log; then
+              echo '::error title=Production build failed::Category: TanStack utility import'
             elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*(@tanstack|tanstack)' build.log; then
               echo '::error title=Production build failed::Category: other TanStack package import'
             elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*(@lovable|lovable)' build.log; then

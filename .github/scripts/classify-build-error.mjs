@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 
 const log = readFileSync(process.argv[2], "utf8");
 const lock = JSON.parse(readFileSync("package-lock.json", "utf8"));
@@ -37,7 +38,17 @@ if (index >= 0) {
         : normalized.includes(".output")
           ? "build output filesystem import"
           : normalized.includes("/home/runner/work/") || normalized.includes("/runner/_work/")
-            ? "repository workspace filesystem import"
+            ? (() => {
+                const workspace = process.cwd().replaceAll("\\", "/");
+                const relative = normalized.replace(/^file:\/\//, "").split(/[?#]/)[0].slice(workspace.length + 1);
+                const tracked = execFileSync("git", ["ls-files"], { encoding: "utf8" })
+                  .trim().split(/\r?\n/).sort();
+                const trackedIndex = tracked.indexOf(relative);
+                if (trackedIndex >= 0) return `tracked repository file index ${trackedIndex}`;
+                const depth = relative.split("/").length;
+                const extension = relative.includes(".") ? relative.split(".").at(-1) : "none";
+                return `untracked repository path depth ${depth} extension ${extension}`;
+              })()
             : normalized.includes("/runner/_temp/") || normalized.includes("/tmp/")
               ? "temporary filesystem import"
           : "other absolute filesystem import";

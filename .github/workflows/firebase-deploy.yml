@@ -24,8 +24,20 @@ jobs:
           npm run build >build.log 2>&1
           build_status=$?
           if [ "$build_status" -ne 0 ]; then
-            if grep -Eqi 'Cannot find module|Cannot find package|MODULE_NOT_FOUND' build.log; then
-              echo '::error title=Production build failed::Category: missing module or package'
+            if grep -Eqi '@rollup/rollup-|rollup.*native' build.log; then
+              echo '::error title=Production build failed::Category: Rollup native package'
+            elif grep -Eqi '@rolldown/binding-|rolldown.*binding' build.log; then
+              echo '::error title=Production build failed::Category: Rolldown native package'
+            elif grep -Eqi '@tailwindcss/oxide-|lightningcss-' build.log; then
+              echo '::error title=Production build failed::Category: Tailwind or Lightning CSS native package'
+            elif grep -Eqi '@oxc-parser/binding-' build.log; then
+              echo '::error title=Production build failed::Category: OXC native package'
+            elif grep -Eqi 'workerd|@cloudflare/workerd-' build.log; then
+              echo '::error title=Production build failed::Category: Cloudflare Workerd package'
+            elif grep -Eqi 'nitro' build.log; then
+              echo '::error title=Production build failed::Category: Nitro package'
+            elif grep -Eqi 'Cannot find module|Cannot find package|MODULE_NOT_FOUND' build.log; then
+              echo '::error title=Production build failed::Category: project or other package import'
             elif grep -Eqi 'ENOENT|no such file or directory' build.log; then
               echo '::error title=Production build failed::Category: missing file'
             elif grep -Eqi 'prerender' build.log; then

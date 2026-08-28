@@ -54,8 +54,12 @@ jobs:
               echo '::error title=Production build failed::Category: TanStack Start client or storage import'
             elif grep -Eqi '(Cannot find module|Cannot find package)[[:space:]]+[^A-Za-z0-9@]*@tanstack/(history|store|react-store|router-utils|virtual-file-routes)' build.log; then
               echo '::error title=Production build failed::Category: TanStack utility import'
-            elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*(@tanstack|tanstack)' build.log; then
-              echo '::error title=Production build failed::Category: other TanStack package import'
+            elif grep -Eqi '(Cannot find module|Cannot find package)[[:space:]]+[^A-Za-z0-9@]*(@babel/code-frame|@babel/core|@babel/types)' build.log; then
+              echo '::error title=Production build failed::Category: Babel package import'
+            elif grep -Eqi '(Cannot find module|Cannot find package)[[:space:]]+[^A-Za-z0-9@]*(lightningcss|source-map|xmlbuilder2)' build.log; then
+              echo '::error title=Production build failed::Category: compiler support package import'
+            elif grep -Eqi '(Cannot find module|Cannot find package)[[:space:]]+[^A-Za-z0-9@]*(exsolve|pathe|picomatch|seroval|srvx|tinyglobby|ufo|vitefu|zod)' build.log; then
+              echo '::error title=Production build failed::Category: TanStack plugin utility dependency import'
             elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*(@lovable|lovable)' build.log; then
               echo '::error title=Production build failed::Category: Lovable package import'
             elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*(nitro|unenv|h3|rolldown)' build.log; then

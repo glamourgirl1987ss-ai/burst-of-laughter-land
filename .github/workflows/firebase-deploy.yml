@@ -34,8 +34,20 @@ jobs:
               echo '::error title=Production build failed::Category: OXC native package'
             elif grep -Eqi 'workerd|@cloudflare/workerd-' build.log; then
               echo '::error title=Production build failed::Category: Cloudflare Workerd package'
+            elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*@tanstack/react-start' build.log; then
+              echo '::error title=Production build failed::Category: TanStack React Start import'
+            elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*@tanstack/(start-server-core|react-start-server)' build.log; then
+              echo '::error title=Production build failed::Category: TanStack server-core import'
+            elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*@tanstack/(react-router|router-core)' build.log; then
+              echo '::error title=Production build failed::Category: TanStack router runtime import'
+            elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*@tanstack/(router-plugin|router-generator)' build.log; then
+              echo '::error title=Production build failed::Category: TanStack router build import'
+            elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*@tanstack/devtools' build.log; then
+              echo '::error title=Production build failed::Category: TanStack devtools import'
+            elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*@tanstack/(react-query|query-core)' build.log; then
+              echo '::error title=Production build failed::Category: TanStack query import'
             elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*(@tanstack|tanstack)' build.log; then
-              echo '::error title=Production build failed::Category: TanStack package import'
+              echo '::error title=Production build failed::Category: other TanStack package import'
             elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*(@lovable|lovable)' build.log; then
               echo '::error title=Production build failed::Category: Lovable package import'
             elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*(nitro|unenv|h3|rolldown)' build.log; then

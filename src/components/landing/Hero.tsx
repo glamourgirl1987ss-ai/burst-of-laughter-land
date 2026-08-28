@@ -32,7 +32,13 @@ export function Hero() {
             🤪 {hero.tagline} 💥
           </p>
         </div>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <div className="relative z-[70] mt-6 inline-block rotate-1 rounded-full border-4 border-fun-ink bg-fun-pink px-6 py-2 shadow-[5px_5px_0_rgb(0_0_0_/_0.85)] md:mt-8 md:px-8 md:py-3">
+          <span className="sr-only">Цена:</span>
+          <span className="font-display text-4xl font-extrabold tracking-tight text-fun-ink md:text-5xl">
+            {hero.price}
+          </span>
+        </div>
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-4 md:mt-8">
           <a
             href="#order"
             className="group relative inline-flex items-center gap-2 rounded-full bg-fun-red px-8 py-4 font-display text-lg font-bold text-white shadow-[0_8px_0_rgb(0_0_0_/_0.15)] transition-all hover:-translate-y-1 hover:shadow-[0_12px_0_rgb(0_0_0_/_0.18)] active:translate-y-1 active:shadow-[0_4px_0_rgb(0_0_0_/_0.18)] md:text-xl"

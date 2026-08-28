@@ -27,7 +27,17 @@ if (index >= 0) {
 } else if (specifier.startsWith("./") || specifier.startsWith("../")) {
   console.log("::error title=Production build failed::Category: relative source import");
 } else if (specifier.startsWith("/") || specifier.startsWith("file:")) {
-  console.log("::error title=Production build failed::Category: absolute filesystem import");
+  const normalized = specifier.replaceAll("\\", "/");
+  const category = normalized.includes("/node_modules/")
+    ? "dependency filesystem import"
+    : normalized.includes("/.tanstack/")
+      ? "generated TanStack filesystem import"
+      : normalized.includes("/src/")
+        ? "source filesystem import"
+        : normalized.includes("/.output/")
+          ? "build output filesystem import"
+          : "other absolute filesystem import";
+  console.log(`::error title=Production build failed::Category: ${category}`);
 } else if (specifier.startsWith("#")) {
   console.log("::error title=Production build failed::Category: package-internal import alias");
 } else if (specifier.startsWith("node:")) {

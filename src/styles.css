@@ -203,6 +203,24 @@
   transform-origin: center;
 }
 
+@keyframes price-float {
+  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)) scale(1); }
+  25% { transform: translateY(-10px) rotate(calc(var(--r, 0deg) + 4deg)) scale(1.06); }
+  50% { transform: translateY(-4px) rotate(calc(var(--r, 0deg) - 3deg)) scale(1.03); }
+  75% { transform: translateY(-12px) rotate(calc(var(--r, 0deg) + 3deg)) scale(1.06); }
+}
+
+.animate-price-float {
+  animation: price-float 3.5s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.animate-price-float-slow {
+  animation: price-float 5s ease-in-out infinite;
+  animation-delay: 0.6s;
+  transform-origin: center;
+}
+
 .fun-title {
   font-family: var(--font-fun);
   background: linear-gradient(180deg, #FFD93D 0%, #FF6B35 40%, #E63462 70%, #7B2CBF 100%);

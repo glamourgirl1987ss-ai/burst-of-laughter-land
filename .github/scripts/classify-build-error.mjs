@@ -36,7 +36,7 @@ if (index >= 0) {
         ? "source filesystem import"
         : normalized.includes(".output")
           ? "build output filesystem import"
-          : normalized.includes("/runner/_work/")
+          : normalized.includes("/home/runner/work/") || normalized.includes("/runner/_work/")
             ? "repository workspace filesystem import"
             : normalized.includes("/runner/_temp/") || normalized.includes("/tmp/")
               ? "temporary filesystem import"

@@ -64,8 +64,12 @@ jobs:
               echo '::error title=Production build failed::Category: Lovable package import'
             elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*(nitro|unenv|h3|rolldown)' build.log; then
               echo '::error title=Production build failed::Category: Nitro dependency import'
-            elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*(vite|rollup|esbuild)' build.log; then
-              echo '::error title=Production build failed::Category: Vite dependency import'
+            elif grep -Eqi '(Cannot find module|Cannot find package)[[:space:]]+[^A-Za-z0-9@]*vite' build.log; then
+              echo '::error title=Production build failed::Category: Vite package import'
+            elif grep -Eqi '(Cannot find module|Cannot find package)[[:space:]]+[^A-Za-z0-9@]*rollup' build.log; then
+              echo '::error title=Production build failed::Category: Rollup package import'
+            elif grep -Eqi '(Cannot find module|Cannot find package)[[:space:]]+[^A-Za-z0-9@]*(@esbuild|esbuild)' build.log; then
+              echo '::error title=Production build failed::Category: Esbuild package import'
             elif grep -Eqi '(Cannot find module|Cannot find package|MODULE_NOT_FOUND).*(react|supabase|sonner|zod)' build.log; then
               echo '::error title=Production build failed::Category: application dependency import'
             elif grep -Eqi 'Could not resolve.*(src/|@/|\./|\.\./)' build.log; then

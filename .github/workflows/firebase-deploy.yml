@@ -17,7 +17,30 @@ jobs:
           node-version: 24
 
       - run: npm ci
-      - run: npm run build
+      - name: Build
+        shell: bash
+        run: |
+          set +e
+          npm run build >build.log 2>&1
+          build_status=$?
+          if [ "$build_status" -ne 0 ]; then
+            if grep -Eqi 'Cannot find module|Cannot find package|MODULE_NOT_FOUND' build.log; then
+              echo '::error title=Production build failed::Category: missing module or package'
+            elif grep -Eqi 'ENOENT|no such file or directory' build.log; then
+              echo '::error title=Production build failed::Category: missing file'
+            elif grep -Eqi 'prerender' build.log; then
+              echo '::error title=Production build failed::Category: prerender failure'
+            elif grep -Eqi 'environment variable|SUPABASE|VITE_' build.log; then
+              echo '::error title=Production build failed::Category: environment configuration'
+            elif grep -Eqi 'heap|out of memory|Killed' build.log; then
+              echo '::error title=Production build failed::Category: runner memory limit'
+            elif grep -Eqi 'RollupError|Build failed with' build.log; then
+              echo '::error title=Production build failed::Category: bundler error'
+            else
+              echo '::error title=Production build failed::Category: uncategorized build error'
+            fi
+            exit "$build_status"
+          fi
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:

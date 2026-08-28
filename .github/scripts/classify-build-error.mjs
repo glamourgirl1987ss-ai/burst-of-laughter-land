@@ -27,15 +27,19 @@ if (index >= 0) {
 } else if (specifier.startsWith("./") || specifier.startsWith("../")) {
   console.log("::error title=Production build failed::Category: relative source import");
 } else if (specifier.startsWith("/") || specifier.startsWith("file:")) {
-  const normalized = specifier.replaceAll("\\", "/");
+  const normalized = decodeURIComponent(specifier).replaceAll("\\", "/");
   const category = normalized.includes("/node_modules/")
     ? "dependency filesystem import"
-    : normalized.includes("/.tanstack/")
+    : normalized.includes(".tanstack")
       ? "generated TanStack filesystem import"
-      : normalized.includes("/src/")
+      : normalized.includes("/src/") || normalized.includes("/src%2F")
         ? "source filesystem import"
-        : normalized.includes("/.output/")
+        : normalized.includes(".output")
           ? "build output filesystem import"
+          : normalized.includes("/runner/_work/")
+            ? "repository workspace filesystem import"
+            : normalized.includes("/runner/_temp/") || normalized.includes("/tmp/")
+              ? "temporary filesystem import"
           : "other absolute filesystem import";
   console.log(`::error title=Production build failed::Category: ${category}`);
 } else if (specifier.startsWith("#")) {

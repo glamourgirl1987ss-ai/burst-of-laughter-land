@@ -34,8 +34,6 @@ jobs:
               echo '::error title=Production build failed::Category: OXC native package'
             elif grep -Eqi 'workerd|@cloudflare/workerd-' build.log; then
               echo '::error title=Production build failed::Category: Cloudflare Workerd package'
-            elif grep -Eqi 'nitro' build.log; then
-              echo '::error title=Production build failed::Category: Nitro package'
             elif grep -Eqi 'Cannot find module|Cannot find package|MODULE_NOT_FOUND' build.log; then
               echo '::error title=Production build failed::Category: project or other package import'
             elif grep -Eqi 'ENOENT|no such file or directory' build.log; then
@@ -48,6 +46,10 @@ jobs:
               echo '::error title=Production build failed::Category: runner memory limit'
             elif grep -Eqi 'RollupError|Build failed with' build.log; then
               echo '::error title=Production build failed::Category: bundler error'
+            elif grep -Eqi 'TypeError|ReferenceError|SyntaxError' build.log; then
+              echo '::error title=Production build failed::Category: JavaScript runtime error'
+            elif grep -Eqi 'nitro.*error|error.*nitro|\[nitro\].*(error|failed)' build.log; then
+              echo '::error title=Production build failed::Category: Nitro build error'
             else
               echo '::error title=Production build failed::Category: uncategorized build error'
             fi

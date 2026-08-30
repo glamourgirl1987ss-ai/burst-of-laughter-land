@@ -60,9 +60,10 @@ export function OrderForm() {
       const { data: res, error } = await supabase.functions.invoke("send-order-email", {
         body: result.data,
       });
-      if (error || (res && (res as any).error)) {
+      if (error || (res as { success?: boolean } | null)?.success !== true) {
         throw new Error("send failed");
       }
+      (window as Window & { fbq?: (...args: unknown[]) => void }).fbq?.("track", "Lead");
       toast.success("Благодарим! Поръчката е изпратена успешно.");
       setData({ name: "", phone: "", email: "", address: "" });
     } catch (err) {

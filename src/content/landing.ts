@@ -21,7 +21,7 @@ export const siteContent = {
     tagline: "Играта, която ще ви взриви от смях",
     subtitle: "Играй! Смей се! Познай!",
     cta: "Поръчай тук",
-    price: "19,90 €",
+    price: "9,90 €",
     floatingEmojis: ["🤪", "😂", "🤡", "🙃", "🎉", "🃏", "💥", "😜", "🥳", "✨"],
   },
   about: {
@@ -91,7 +91,8 @@ export const siteContent = {
     heading: "Поръчай сега",
     subheading: "Попълни данните и ние ще се свържем с теб!",
     submit: "Поръчай сега",
-    price: "19,90 €",
+    originalPrice: "19,90 €",
+    price: "9,90 €",
     success: "Благодарим! Ще се свържем с теб скоро. 🎉",
   },
   footer: {
